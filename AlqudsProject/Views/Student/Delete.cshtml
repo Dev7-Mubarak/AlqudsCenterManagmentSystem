@@ -1,0 +1,97 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/STDeleteStyle.css" asp-append-version="true" />
+</head>
+@model AlqudsProject.Models.Student
+
+@{
+    ViewData["Title"] = "تأكيد حذف الطالبة";
+}
+
+<div class="delete-container">
+    <div class="title-desigen">
+        <div class="profile-image-container">
+            <img src="~/images/StudentPic.jpg" alt="@Model.Name" class="profile-image">
+        </div>
+        <div>
+            <h2 class="student-name">هل تريد حذف الطالبة</h2>
+            <h2 class="student-name">@Model.Name</h2>
+             
+        </div>
+    </div>
+
+    <div class="Section">
+        <div class="section-1">
+            <div class="student-info-group">
+                <strong class="info-label">رقم الهاتف:</strong>
+                <span class="info-value">@(string.IsNullOrEmpty(Model.PhoneNumber) ? "لا يوجد" : Model.PhoneNumber)</span>
+            </div>
+
+            <div class="student-info-group">
+                <strong class="info-label">العنوان:</strong>
+                <span class="info-value">@Model.Address</span>
+            </div>
+
+            <div class="student-info-group">
+                <strong class="info-label">تاريخ الميلاد:</strong>
+                <span class="info-value" id="birthdateValue">@Model.BirthDate?.ToString("yyyy-MM-dd")</span>
+            </div>
+
+            <div class="student-info-group">
+                <strong class="info-label">العمر:</strong>
+                <span class="info-value">
+                    @if (Model.BirthDate.HasValue)
+                    {
+                        @CalculateAge(Model.BirthDate.Value)
+                    }
+                </span>
+            </div>
+
+        </div>
+
+        <div class="section-2">
+            <div class="student-info-group">
+                <strong class="info-label">اسم ولي الأمر:</strong>
+                <span class="info-value">@Model.Parent?.Name</span>
+            </div>
+
+            <div class="student-info-group">
+                <strong class="info-label">اسم الحلقة:</strong>
+                <span class="info-value">@Model.Halaqa?.Name</span>
+            </div>
+
+            <div class="student-info-group">
+                <strong class="info-label">المستوى التعليمي الحالي:</strong>
+                <span class="info-value">@Model.CurrentEducationalLevel</span>
+            </div>
+
+            <div class="student-info-group">
+                <strong class="info-label">المؤهل التعليمي:</strong>
+                <span class="info-value">@Model.EducationalQualification</span>
+            </div>
+        </div>
+    </div>
+
+    
+       <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="StudentId" />
+            <div class="btn-back mt-5">
+                <button type="submit" class="btn btn-my-danger">حذف</button>
+                <a asp-action="Index" class="btn btn-my-secondary">إلغاء</a>
+            </div>
+        </form>
+   
+</div>
+
+
+@functions {
+    public string CalculateAge(DateTime birthDate)
+    {
+        var today = DateTime.Today;
+        var age = today.Year - birthDate.Year;
+        if (birthDate.Date > today.AddYears(-age))
+        {
+            age--;
+        }
+        return $"{age} سنة";
+    }
+}

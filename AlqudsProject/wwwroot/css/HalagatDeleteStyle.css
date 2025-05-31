@@ -1,0 +1,142 @@
+﻿body {
+    background-color: #FFE8D6;
+    flex-direction: row-reverse;
+    font-family: "Changa", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+.main-section {
+    padding: 60px 0;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.container {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.cardRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.col-md-6 {
+    flex: 0 0 50%;
+    padding: 0 20px;
+    margin-bottom: 30px;
+}
+
+
+.img-fluid-2 {
+    width: 85%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    display: block;
+    margin: 0 auto;
+}
+
+.lead {
+    font-weight: 600;
+    color: #6b705c;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+    .lead strong {
+        font-weight: 600;
+        color: #6b705c;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+.lead-details-item {
+    text-align: center;
+}
+
+    .lead-details-item ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+        .lead-details-item ul li {
+            background-color: white;
+            color: #6b705c;
+            border-radius: 5px;
+            padding: 8px 12px;
+            margin-left: 8px;
+            margin-bottom: 5px;
+            font-size: 15px;
+        }
+
+            .lead-details-item ul li:last-child {
+                margin-left: 0;
+            }
+
+    .lead-details-item strong {
+        font-weight: 600;
+        color: #6b705c;
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        font-size: 20px;
+    }
+
+.btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.btn-my-secondary {
+    background-color: #6b705c;
+    color: #fff;
+    border: 1px solid #6b705c;
+    width: 120px;
+}
+
+    .btn-my-secondary:hover {
+        background-color: #fff;
+        color: #6b705c;
+        transform: translateY(-2px);
+        border: 1px solid #6b705c;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    }
+
+.btn-my-danger {
+    background-color: #e75656;
+    color: white;
+    border: 1px solid #e75656;
+    width: 120px;
+}
+
+    .btn-my-danger:hover {
+        background-color: white;
+        color: #e75656;
+        border: 1px solid #e75656;
+        transform: translateY(-2px);
+    }
+
+.student-name {
+    font-size: 1.6em;
+    color: #e75656;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 60px;
+}
+
+.btn-back {
+    text-align: center;
+}

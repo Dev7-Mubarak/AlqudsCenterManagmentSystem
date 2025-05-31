@@ -1,0 +1,86 @@
+﻿
+<head>
+    <link rel="stylesheet" href="~/css/HalagatCreateStyle.css" asp-append-version="true" />
+</head>
+
+@model AlqudsProject.ViewModels.HalaqaCreateViewModel
+
+@{
+    ViewData["Title"] = "إضافة حلقة";
+}
+
+<div class="container mt-5 shadow p-4 rounded bg-white">
+    <h2 class="text-center mb-4 text-my-primary">📘 إضافة حلقة جديدة</h2>
+
+    <form asp-action="Create" method="post">
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <label for="Name" class="form-label fw-bold">📌 اسم الحلقة</label>
+                <input type="text" id="Name" name="Name" required class="form-control" value="@Model.Name" placeholder="مثال: حلقة النور" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="TeacherID" class="form-label fw-bold">👨‍🏫 المعلم</label>
+                <select required asp-for="TeacherID" class="form-select" asp-items="Model.Teachers" required>
+                    <option value="">اختر معلمًا</option>
+                </select>
+                <span asp-validation-for="TeacherID" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label for="Period" class="form-label fw-bold">🕒 الفترة</label>
+                <select required asp-for="Period" class="form-select" asp-items="Model.Periods" required>
+                    <option value="">اختر الفترة</option>
+                </select>
+                <span asp-validation-for="Period" class="text-danger"></span>
+            </div>
+        </div>
+<div class="row mb-4">
+    <div class="col-md-6">
+        <label class="form-label fw-bold">📚 المسارات</label>
+        <div>
+            @foreach (var path in Model.Paths)
+            {
+                <div class="form-check">
+                   
+                    <input class="form-check-input" type="checkbox" name="SelectedPathIds" value="@path.Value"
+                           @(Model.SelectedPathIds != null && Model.SelectedPathIds.Contains(int.Parse(path.Value)) ? "checked" : "") />   
+                    <label class="form-check-label">@path.Text</label>
+                </div>
+            }
+        </div>
+        <span asp-validation-for="SelectedPathIds" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label fw-bold">📖 المناهج</label>
+        <div>
+            @foreach (var manhaj in Model.Manhajs)
+            {
+                <div class="form-check">                  
+                    <input class="form-check-input" type="checkbox" name="SelectedManhajIds" value="@manhaj.Value"
+                           @(Model.SelectedManhajIds != null && Model.SelectedManhajIds.Contains(int.Parse(manhaj.Value)) ? "checked" : "") /> 
+                 <label class="form-check-label">@manhaj.Text</label>
+                </div>
+            }
+        </div>
+        <span asp-validation-for="SelectedManhajIds" class="text-danger"></span>
+    </div>
+</div>
+
+
+        <div class="text-center d-flex justify-content-center gap-3 mt-4">
+            <button type="submit" class="btn btn-my-success px-5 py-2">إضافة</button>
+            <a asp-action="Index" class="btn-back">تراجع</a>
+        </div>
+
+        @*<div asp-validation-summary="All" class="text-danger mt-3 text-center"></div>*@
+    </form>
+</div>
+
+
+
+

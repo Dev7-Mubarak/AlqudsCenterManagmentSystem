@@ -1,0 +1,158 @@
+﻿:root {
+    --primary-color: #3a3e61;
+    --secondary-color: #fff;
+    --accent-color: #4dd9d6;
+    --text-color: #060633;
+    --paragraph-color: #4b556b;
+}
+
+body {
+    color: var(--primary-color);     
+}
+
+
+.container {
+    margin: 5% auto;
+    max-width: 1200px;
+    padding: 0 20px;
+    direction: rtl;
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent-color);
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+    a:hover {
+        color: #26b6b2;
+    }
+
+h1, h2, h3 {
+    color: black;
+    word-spacing: 2px;
+    line-height: 1.8;
+}
+
+.grid-features {
+    display: grid;
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* البطاقات */
+.bento-card {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border-radius: 2.5rem;
+    padding: 1.2rem;
+    min-height: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+
+    .bento-card:hover {
+        transform: translateY(-5px);
+        /* box-shadow: 15px 15px 25px rgba(0, 0, 0, 0.3); */
+        transform: scale(0.98);
+        box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
+
+    }
+
+    /* ألوان مخصصة */
+    .bento-card.card1 {
+        background: linear-gradient(135deg, #ffffff, #ddbea9);
+        color: black;
+    }
+
+    .bento-card.card2 {
+        background-color: #cb997e;
+    }
+
+    .bento-card.card3 {
+        background: linear-gradient(135deg, #ffffff, #b7b7a4);
+        color: black;
+    }
+
+    .bento-card.card4 {
+        background-color: #6b705c;
+    }
+
+    .bento-card.card5 {
+        background: linear-gradient(135deg, #ffffff, #ddbea9);
+        color: black;
+    }
+
+    .bento-card.card6 {
+        background-color: #6b705c;
+    }
+
+    .bento-card.card2 h2, .bento-card.card4 h2,.bento-card.card6 h2{
+        color: white;
+    }
+
+/* محتوى النص */
+.bento-card-description {
+    text-align: center;
+}
+
+.bento-card h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.bento-card p {
+    font-size: 1rem;
+}
+
+/* زر الفأرة */
+.clickable-card {
+    cursor: pointer;
+}
+
+/* ✅ Media Query للجوالات */
+@media (max-width: 768px) {
+    .grid-features {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bento-card {
+        min-height: 8rem;
+        padding: 1rem;
+    }
+
+        .bento-card h2 {
+            font-size: 1.4rem;
+        }
+}
+
+
+@media (max-width: 480px) {
+    .grid-features {
+        grid-template-columns: 1fr;
+    }
+
+    .bento-card {
+        min-height: 7rem;
+        padding: 0.8rem;
+    }
+
+        .bento-card h2 {
+            font-size: 1.3rem;
+        }
+}
+body {
+    background-color: #FFE8D6;
+    flex-direction: row-reverse;
+    font-family: "Changa", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+}

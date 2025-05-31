@@ -1,0 +1,90 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/STEditStyle.css" asp-append-version="true" />
+</head>
+@model AlqudsProject.Models.Teacher
+
+@{
+    ViewData["Title"] = "تعديل بيانات المعلمة";
+    List<AlqudsProject.Models.Halaqa> halaqat = ViewBag.Halaqat;
+}
+
+<div class="edit-teacher-form">
+    <h2>تعديل بيانات المعلمة</h2>
+
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="TeacherId" />
+        <div class="form-columns">
+            <div>
+               <label asp-for="Name">👤 الاسم الكامل</label>
+                <input asp-for="Name" class="form-control" placeholder="اسم المعلمة" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+
+                <label asp-for="BirthDate">🎂 تاريخ الميلاد</label>
+                <input asp-for="BirthDate" type="date" class="form-control" />
+
+                <label asp-for="PhoneNumber">📱 رقم الجوال</label>
+                <input asp-for="PhoneNumber" class="form-control" placeholder="اختياري" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+                <label asp-for="Address">🏠 العنوان</label>
+                <input asp-for="Address" class="form-control" placeholder="العنوان"/>
+                <span asp-validation-for="Address" class="text-danger"></span>
+
+                <label asp-for="Job">💼 الوظيفة</label>
+                <input asp-for="Job" class="form-control" placeholder="الوظيفة"/>
+                <span asp-validation-for="Job" class="text-danger"></span>
+
+                <label asp-for="PassportNumber">🛂 رقم الجواز</label>
+                <input asp-for="PassportNumber" class="form-control" placeholder="رقم الجواز"/>
+                <span asp-validation-for="PassportNumber" class="text-danger"></span>
+
+                <div class="form-check col-md-12">
+                    <input asp-for="IsMojaz" class="form-check-input" />   
+                    <label asp-for="IsMojaz" class="form-check-label">مجازة؟</label>                   
+                </div>
+            </div>
+
+            <div>
+               <label asp-for="Idnumber">💳 رقم الهوية</label>
+                <input asp-for="Idnumber" class="form-control" placeholder="رقم الهوية" required />
+                <span asp-validation-for="Idnumber" class="text-danger"></span>
+
+                <label asp-for="EducationalQualification">🎓 المؤهل العلمي</label>
+                <input asp-for="EducationalQualification" class="form-control" placeholder="المؤهل العلمي"/>
+                <span asp-validation-for="EducationalQualification" class="text-danger"></span>
+
+                <label asp-for="Experience">⏳ الخبرة</label>
+                <input asp-for="Experience" class="form-control" placeholder="الخبرة"/>
+                <span asp-validation-for="Experience" class="text-danger"></span>
+
+                <label asp-for="Courses">📚 الدورات</label>
+                <input asp-for="Courses" class="form-control" placeholder="الدورات"/>
+                <span asp-validation-for="Experience" class="text-danger"></span>
+
+                <label asp-for="MaritalStatus">💍 الحالة الاجتماعية</label>
+                <input asp-for="MaritalStatus" class="form-control" placeholder="الحالة الاجتماعية"/>
+                <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+
+                <label asp-for="AmountOfMemorization">📖 مقدار الحفظ</label>
+                <input asp-for="AmountOfMemorization" class="form-control" placeholder="مقدار الحفظ"/>
+                <span asp-validation-for="AmountOfMemorization" class="text-danger"></span>
+
+
+                 <div class="form-check col-md-12">               
+                  <input asp-for="IsAdministrator" class="form-check-input" />
+                    <label asp-for="IsAdministrator" class="form-check-label">مسؤولة؟</label>
+               </div>
+            </div>
+        </div>
+
+        <div class="form-buttons">
+            <input type="submit" value="تعديل" class="btn btn-my-submit" />
+            <a asp-action="Index" class="btn btn-my-danger">تراجع</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

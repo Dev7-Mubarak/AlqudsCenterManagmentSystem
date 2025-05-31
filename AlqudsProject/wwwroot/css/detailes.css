@@ -1,0 +1,101 @@
+﻿body {
+    background-color: #FFE8D6;
+    font-family: "Changa", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.news-image {
+    max-height: 450px;
+    width: 450px;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    max-width: 100%;
+}
+    .news-box {
+        padding: 30px;
+        background-color: #fff7f0;
+        border: 2px solid #CB997B;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+.news-title-box {
+    background-color: #CB997B;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.news-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+}
+
+.news-content {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    text-align: justify;
+    direction: rtl;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .news-content h4 {
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 2;
+        color: #444;
+        text-align: center;
+    }
+.btn-back {
+    background-color: #CB997E;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 22px !important;
+    font-weight: bold;
+    transition: 0.3s ease;
+    text-decoration: none;
+}
+
+    .btn-back:hover {
+        background-color: #DDBEA9;
+        color: black;
+    }
+/* جديد للكراوسل الصور */
+.carousel-img {
+    max-height: 450px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+/* تعديل إضافي يخلي السلايدر متجاوب أكثر مع الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .carousel-img {
+        max-height: 300px;
+    }
+
+    .news-title {
+        font-size: 22px;
+    }
+
+    .news-content h4 {
+        font-size: 18px;
+    }
+
+    .btn-back {
+        font-size: 18px !important;
+        padding: 8px 20px;
+    }
+}

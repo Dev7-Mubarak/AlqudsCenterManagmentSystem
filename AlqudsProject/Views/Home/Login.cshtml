@@ -1,0 +1,49 @@
+﻿@model AlqudsProject.ViewModels.LoginViewModel
+
+
+@{ ViewData["Title"] = "تسجيل الدخول"; }
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<link rel="stylesheet" href="~/css/login.css" /><div class="login-form">
+    <h2>تسجيل الدخول</h2>@if (TempData["Error"] != null)
+{
+    <div class="error-message">@TempData["Error"]</div>
+}
+
+<form asp-action="Login" method="post">
+    <div>
+        <label>نوع المستخدم:</label>
+        <select asp-for="RoleName">
+            <option value="">اختر نوع المستخدم</option>
+            @foreach (var role in ViewBag.Roles)
+            {
+                <option value="@role.RoleName">@role.RoleName</option>
+            }
+        </select>
+        <span asp-validation-for="RoleName" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label>اسم المستخدم:</label>
+        <input asp-for="Username" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label>كلمة المرور:</label>
+        <div class="password-wrapper">
+            <input asp-for="PasswordHash" id="passwordInput" />
+            
+        </div>
+        <span asp-validation-for="PasswordHash" class="text-danger"></span>
+
+        <div class="forgot-link">
+            <a href="#">هل نسيت كلمة المرور؟</a>
+        </div>
+    </div>
+
+    <button type="submit">دخول</button>
+</form>
+
+   

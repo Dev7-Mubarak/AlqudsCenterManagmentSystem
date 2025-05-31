@@ -1,0 +1,35 @@
+﻿@model List<Halaqa>
+
+@{
+    ViewData["Title"] = "حلقاتي";
+}
+<link rel="stylesheet" href="~/css/halagaCards.css" />
+<h1 class="title">حلقاتي</h1>
+<div class="row">
+    @for (int i=0; i<Model.Count;i++)
+    {
+        var halaqa = Model[i];
+        var bgIndex = (i % 3) + 1;
+        var cardBgImage = Url.Content($"~/images/cardbg{bgIndex}.jpg");  
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 cards">
+            <a href=@Url.Action("StudentsDaily","Attendance",new{halaqaId=halaqa.HalaqaId}) id="allCards">
+
+            <div class="card text-dark card-has-bg click-col" style="background-image:url('@cardBgImage');">
+                <img class="card-img d-none" src="@cardBgImage" alt="صورة خلفية">
+                <div class="card-img-overlay d-flex flex-column">
+                    <div class="card-body">
+                        <small class="card-meta mb-2">حلقة</small>
+                        <h4 class="card-title mt-0 ">
+                            <a class="name" href=@Url.Action("StudentsDaily","Attendance",new{halaqaId=halaqa.HalaqaId})>
+                                @halaqa.Name
+                            </a>
+                        </h4>
+                        <small class="period"><i class="far fa-clock "></i> الفترة: @halaqa.Period</small>
+                    </div>
+                    
+                </div>
+            </div>
+           </a>
+        </div>
+    }
+</div>

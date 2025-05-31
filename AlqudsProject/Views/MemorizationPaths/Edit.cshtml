@@ -1,0 +1,31 @@
+﻿<link rel="stylesheet" href="~/css/STEditStyle.css" asp-append-version="true" />
+@model AlqudsProject.Models.MemorizationPath
+
+<div class="add-student-form">
+    <h2>تعديل بيانات المسار</h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="PathId" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-columns">
+            <div>
+                <label asp-for="Name">🛤️ اسم المسار</label>
+                <input asp-for="Name" class="form-control" placeholder="اسم المسار" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+
+                <label asp-for="MemorizeFrom">📖 بداية الحفظ</label>
+                <input asp-for="MemorizeFrom" class="form-control" placeholder="مثلاً: سورة البقرة" required />
+                <span asp-validation-for="MemorizeFrom" class="text-danger"></span>
+
+                <label asp-for="MemorizeTo">📚 نهاية الحفظ</label>
+                <input asp-for="MemorizeTo" class="form-control" placeholder="مثلاً: سورة الناس" required />
+                <span asp-validation-for="MemorizeTo" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-buttons">
+            <input type="submit" value="تعديل" class="btn btn-my-submit" />
+            <a asp-action="Index" class="btn btn-my-danger">تراجع</a>
+        </div>
+    </form>
+</div>

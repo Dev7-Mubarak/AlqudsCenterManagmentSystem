@@ -1,0 +1,55 @@
+﻿body {
+    background-color: #FFE8D6;
+    flex-direction: row-reverse;
+    font-family: "Changa", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+}
+.btn-plan {
+    color: white;
+    background-color: #CB997E;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 3%;
+}
+
+    .btn-plan:hover {
+        background-color: #DDBEA9;
+    }
+.btn-back {
+    color: #bd8e75;
+    border-color: #bd8e75;
+    background-color: #FFE8D6;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 3%;
+}
+
+    .btn-back:hover {
+        background-color: #DDBEA9;
+    }
+
+.title {
+    color: #484b3d;
+    text-align: center;
+    font-weight: 700;
+}
+
+.row {
+    margin: 5%;
+}
+
+table.Customtable thead > tr > th {
+    background-color: #CB997E !important;
+    color: white !important;
+}
+
+.Customtable th, .Customtable td {
+    text-align: center;
+    vertical-align: middle;
+}

@@ -1,0 +1,67 @@
+﻿body {
+    background-color: #FFE8D6;
+    flex-direction: row-reverse;
+    font-family: "Changa", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+.text-my-primary {
+    color: #6b705c;
+    text-align: center;
+    font-size: 35px;
+    margin-top: 20px;
+}
+
+.form-label {
+    color: #6b705c;
+}
+
+.btn-my-success,
+.btn-back {
+    font-size: 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-my-success {
+    background-color: #6b705c;
+    color: white;
+    border: solid 2px #6b705c;
+}
+
+    .btn-my-success:hover {
+        background-color: white;
+        color: #6b705c;
+        border: solid 2px #6b705c;
+    }
+
+.btn-back {
+    padding-right: 3rem !important;
+    padding-left: 3rem !important;
+    padding-top: .5rem !important;
+    padding-bottom: .5rem !important;
+    background-color: #6b705c;
+    color: white;
+    border: solid 2px #6b705c;
+    text-decoration: none;
+}
+
+    .btn-back:hover {
+        background-color: white;
+        color: #6b705c;
+        border: solid 2px #6b705c;
+    }
+
+.form-check {
+    min-height: 1.5rem;
+    padding-left: 1.5em;
+    display: flex;
+    padding: 0px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+
+.form-check-label {
+    width: 130px;
+    /*text-align: center;*/
+}

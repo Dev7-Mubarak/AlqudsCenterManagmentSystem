@@ -1,0 +1,75 @@
+﻿@model AlqudsProject.ViewModels.MemorizePlanViewModel
+
+
+@{
+    ViewData["Title"] = "خطة الحفظ";
+}
+
+<link rel="stylesheet" href="~/css/Plan.css" asp-append-version="true"/>
+
+
+<h2 class="text-center my-4 title">@(Model.IsEdit ? "تعديل خطة الحفظ" : "إنشاء خطة حفظ")</h2>
+
+<form asp-controller="StudentPlan" asp-action="SubmitPlan" method="post">
+    <input type="hidden" asp-for="StudentId" />
+    <input type="hidden" asp-for="PlanId" />
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label>تاريخ البداية</label>
+            <input asp-for="StartDate" type="date" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>بداية الحفظ (رقم الصفحة)</label>
+            <select asp-for="BeginPage" class="form-control">
+                @for (int i = 1; i <= 604; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label>مقدار الحفظ اليومي (عدد الصفحات)</label>
+            <select asp-for="DailyAmount" class="form-control">
+                <option value="0.5">نصف صفحة</option>
+                <option value="1">صــفــحــة</option>
+                <option value="2">صفحتين</option>
+                <option value="3">ثلاث صفحات</option>
+                <option value="4">أربع صفحات</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="text-center mt-3 mb-4">
+        <button type="submit" class="btn btn-plan px-4">
+            @(Model.IsEdit ? "تعديل الخطة" : "إنشاء الخطة")
+        </button>
+        <input type="button" value="رجوع" class="btn btn-back px-4" onclick="history.back()"/> 
+    </div>
+</form>
+
+<table class="table table-bordered text-center Customtable">
+    <thead>
+        <tr>
+            <th>اليوم</th>
+            <th>التاريخ</th>
+            <th>السورة</th>
+            <th>الكمية</th>
+        </tr>
+    </thead>
+    @if (Model.DailyDetails != null && Model.DailyDetails.Any())
+    {
+        <h4 class="mt-5 text-center">تفاصيل الخطة اليومية</h4>
+
+        <tbody>
+            @foreach (var day in Model.DailyDetails)
+            {
+                <tr>
+                    <td>@day.Day.ToString()</td>
+                    <td>@day.Date.ToString("dd/MM/yyyy")</td>
+                    <td>@day.Surah</td>
+                    <td>@day.Amount</td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>

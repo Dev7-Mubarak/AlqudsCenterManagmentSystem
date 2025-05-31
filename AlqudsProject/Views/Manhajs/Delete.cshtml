@@ -1,0 +1,46 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/STDeleteStyle.css" asp-append-version="true" />
+</head>
+@model AlqudsProject.Models.Manhaj
+
+@{
+    ViewData["Title"] = "تأكيد حذف المنهج";
+}
+
+<div class="delete-container">
+    <div class="title-desigen">
+        <div class="profile-image-container">
+            <img src="~/images/ManahjPic.jpg" alt="@Model.Name" class="profile-image">
+        </div>
+        <div>
+            <h2 class="student-name">هل تريد حذف المنهج</h2>
+            <h2 class="student-name">@Model.Name</h2>
+        </div>
+    </div>
+
+    <div class="Section">
+        <div class="section-1">
+            <div class="student-info-group">
+                <strong class="info-label">اسم المنهج:</strong>
+                <span class="info-value">@Model.Name</span>
+            </div>
+
+            <div class="student-info-group">
+                <strong class="info-label">رابط المنهج:</strong>
+                <span class="info-value">@Model.Url</span>
+            </div>
+            <div class="student-info-group">
+                <strong class="info-label">صورة المنهج:</strong>
+                <span class="info-value">@Model.Picture</span>
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="ManhajId" />
+        <div class="btn-back mt-5">
+            <button type="submit" class="btn btn-my-danger">حذف</button>
+            <a asp-action="Index" class="btn btn-my-secondary">إلغاء</a>
+        </div>
+    </form>
+</div>

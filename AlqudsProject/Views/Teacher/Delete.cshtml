@@ -1,0 +1,121 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/STDeleteStyle.css" asp-append-version="true" />
+</head>
+@model AlqudsProject.Models.Teacher
+
+@{
+    ViewData["Title"] = "تأكيد حذف المعلمة";
+}
+
+<div class="delete-container" style=" min-height: 800px;height: auto;">
+    <div class="title-desigen">
+        <div class="profile-image-container">
+            <img src="~/images/Pic1.jpeg" alt="@Model.Name" class="profile-image">
+        </div>
+        <div>
+            <h2 class="teacher-name">هل تريد حذف المعلمة</h2>
+            <h2 class="teacher-name">@Model.Name</h2>
+             
+        </div>
+    </div>
+         <div class="Section">
+        <div class="section-1">
+            <div class="teacher-info-group">
+                <strong class="info-label">رقم الهاتف:</strong>
+                <span class="info-value">@(string.IsNullOrEmpty(Model.PhoneNumber) ? "لا يوجد" : Model.PhoneNumber)</span>
+            </div>
+
+            <div class="teacher-info-group">
+                <strong class="info-label">العنوان:</strong>
+                <span class="info-value">@Model.Address</span>
+            </div>
+
+            <div class="teacher-info-group">
+                <strong class="info-label">تاريخ الميلاد:</strong>
+                <span class="info-value" id="birthdateValue">@Model.BirthDate?.ToString("yyyy-MM-dd")</span>
+            </div>
+
+            <div class="teacher-info-group">
+                <strong class="info-label">العمر:</strong>
+                <span class="info-value">
+                    @if (Model.BirthDate.HasValue)
+                    {
+                        @CalculateAge(Model.BirthDate.Value)
+                    }
+                </span>
+            </div>
+
+            <div class="teacher-info-group">
+                <strong class="info-label">الوظيفة:</strong>
+                <span class="info-value">@Model.Job</span>
+            </div>
+
+            <div class="teacher-info-group">
+                <strong class="info-label">رقم الجواز:</strong>
+                <span class="info-value">@Model.PassportNumber</span>
+            </div>
+
+            <div class="teacher-info-group" style="display: inline-block; margin-left: 20px;">
+                <strong class="info-label">مسؤولة:</strong>
+                <span class="info-value">@(Model.IsAdministrator ? "نعم" : "لا")</span>
+            </div>
+        </div>
+
+        <div class="section-2">
+            <div class="teacher-info-group">
+                <strong class="info-label">رقم الهوية:</strong>
+                <span class="info-value">@Model.Idnumber</span>
+            </div>
+
+            <div class="teacher-info-group">
+                <strong class="info-label">المؤهل العلمي:</strong>
+                <span class="info-value">@Model.EducationalQualification</span>
+            </div>
+
+            <div class="teacher-info-group">
+                <strong class="info-label">الخبرة:</strong>
+                <span class="info-value">@Model.Experience</span>
+            </div>
+
+            <div class="teacher-info-group">
+                <strong class="info-label">الدورات:</strong>
+                <span class="info-value">@Model.Courses</span>
+            </div>
+
+            <div class="teacher-info-group">
+                <strong class="info-label">الحالة الاجتماعية:</strong>
+                <span class="info-value">@Model.MaritalStatus</span>
+            </div>
+
+            <div class="teacher-info-group">
+                <strong class="info-label">مقدار الحفظ:</strong>
+                <span class="info-value">@Model.AmountOfMemorization</span>
+            </div>
+
+            <div class="teacher-info-group" style="display: inline-block;">
+                <strong class="info-label">مجازة:</strong>
+                <span class="info-value">@(Model.IsMojaz ? "نعم" : "لا")</span>
+            </div>
+        </div>
+    </div>
+     <div>
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="TeacherId" />
+            <div class="btn-back mt-5">
+                <button type="submit" class="btn btn-my-danger">حذف</button>
+                <a asp-action="Index" class="btn btn-my-secondary">إلغاء</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+    @functions {
+        public string CalculateAge(DateTime birthDate)
+        {
+            var today = DateTime.Today;
+            var age = today.Year - birthDate.Year;
+            if (birthDate.Date > today.AddYears(-age)) age--;
+            return $"{age} سنة";
+        }
+    }

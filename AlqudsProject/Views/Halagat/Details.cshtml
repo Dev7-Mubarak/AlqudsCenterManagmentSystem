@@ -1,0 +1,86 @@
+﻿
+<head>
+    <link rel="stylesheet" href="~/css/HalagatDetailsStyle.css" asp-append-version="true" />
+</head>
+
+@model AlqudsProject.Models.Halaqa
+
+@{
+    ViewData["Title"] = "تفاصيل الحلقة";
+}
+
+<section class="main-section px-4">
+    <div class="container">
+         <h1 class="display-5 fw-bold">حلقة @Model.Name</h1>
+        <div class="cardRow">
+            <div class="col-md-6 mb-4">
+                <img src="~/images/cardbg1.jpg" class="img-fluid-2" alt="...">
+            </div>
+            <div class="col-md-6">
+                <p class="lead my-3">
+                    <strong>المعلمة:</strong> @Model.Teacher?.Name
+                </p>
+                <p class="lead my-3">
+                    <strong>السنة الدراسية:</strong> @Model.AcademicYear?.AcademicYear1
+                </p>
+                <p class="lead my-3">
+                    <strong>الفترة:</strong> @Model.Period                
+                    </p>
+                @if (Model.HalaqaManhajs != null && Model.HalaqaManhajs.Any())
+                {
+                    <p class="lead my-3">
+                       <div class="lead-details-item">
+                            <strong>المناهج الدراسية:</strong>
+                            <ul>
+                                @foreach (var manhaj in Model.HalaqaManhajs.Select(hm => hm.Manhaj))
+                                {
+                                    <li>- @manhaj?.Name</li>
+                                }
+                            </ul>
+                        </div>
+                    </p>
+                }
+                @if (Model.PathHalaqaRelationships != null && Model.PathHalaqaRelationships.Any())
+                {
+                    <p class="lead my-3">
+                        <div class="lead-details-item">
+                            <strong>مسارات الحفظ:</strong>
+                           <ul>
+                            @foreach (var path in Model.PathHalaqaRelationships.Select(hp => hp.MemorizationPath))
+                            {
+                                <li>- @path?.Name</li>
+                            }
+                        </ul>
+                        </div>                                          
+                    </p>
+                }
+            </div>
+        </div>
+        @if (Model.Students != null && Model.Students.Any())
+        {
+            <h2 class="intitle mt-5">طالبات الحلقة</h2>
+            <table class="table">
+                <tr>
+                    <th style="color: #6b705c">اسم الطالبة</th>
+                    <th style="color: #6b705c">رقم الهاتف</th>
+                    <th style="color: #6b705c">المستوى التعليمي</th>
+                    <th style="color: #6b705c">رقم الجوال</th>
+                </tr>
+                @foreach (var student in Model.Students)
+                {
+                    <tr>
+                        <td>@student.Name</td>
+                        <td>@(string.IsNullOrEmpty(student.PhoneNumber) ? "لا يوجد" : student.PhoneNumber)</td>
+                        <td>@student.CurrentEducationalLevel</td>
+                        <td>@(string.IsNullOrEmpty(student.PhoneNumber) ? "لا يوجد" : student.PhoneNumber)</td>
+                    </tr>
+                }
+            </table>
+        }
+        <div class="btn-back">
+            <input type="button" value="رجوع" class="btn btn-secondary" onclick="history.back()"/> 
+
+        </div>
+    </div>
+</section>
+

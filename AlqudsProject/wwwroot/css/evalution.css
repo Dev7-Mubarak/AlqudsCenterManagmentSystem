@@ -1,0 +1,81 @@
+﻿body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: "Changa", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+main {
+    flex: 1;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.btn-back {
+    color: #6B705C;
+    border-color: #6B705C;
+    background-color: #FFE8D6;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+    .btn-back:hover {
+        background-color: #6B705C;
+        color:white;
+    }
+
+.title {
+    color: #484b3d;
+    text-align: center;
+    font-weight: 700;
+}
+
+.btn-success {
+    background-color: #6B705C;
+}
+
+form.filters-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+    form.filters-container > div {
+        width: 25%;
+    }
+
+#searchInput {
+    margin-top: 25px;
+}
+
+
+.btn-close {
+    margin-right: 95%;
+}
+table.Customtable thead > tr > th {
+    background-color: #CB997E !important;
+    color: white !important;
+}
+
+.Customtable th, .Customtable td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.dropdown-item:focus,
+.dropdown-item:active,
+.dropdown-item:visited,
+.dropdown-item:hover {
+    background-color: #CB997E !important;
+    color: black !important;
+}

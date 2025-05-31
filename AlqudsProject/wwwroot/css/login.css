@@ -1,0 +1,120 @@
+﻿body {
+    direction: rtl;
+    margin: 0;
+    padding: 0;
+    background-color: #FFE8D6;
+    font-family: "Changa", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.login-form {
+    max-width: 700px;
+    margin: 80px auto;
+    background: #B7B7A4;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+.login-form select {
+    appearance: none;
+/*    background-image:url("data:image/svg+xml;utf8");
+    background-repeat:no-repeat;
+    background-position:right 15px center;
+    background-size: 16px;
+    padding-right: 45px;*/
+}
+
+    .login-form h2 {
+        font-size:24px;
+        text-align: center;
+        font-weight:bold;
+        margin-bottom: 25px;
+        color: #2c3e50;
+    }
+
+    .login-form label {
+        font-size:17px;
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .login-form input,
+    .login-form select {
+        width: 100%;
+        padding: 10px;
+        font-size: 17px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+    }
+
+.password-wrapper {
+    position: relative;
+}
+
+
+.login-form input[type="password"]{
+    padding-left:45px;
+}
+.login-form button[type="submit"] {
+
+    width: 100%;
+    background-color: #6B705C;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 18px;
+    font-weight:bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+    .login-form button[type="submit"]:hover {
+        background-color: #A5A58D;
+        color: black;
+    }
+
+.text-danger {
+    color: red;
+    font-size: 14px;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.forgot-link {
+    text-align: left;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+    .forgot-link a {
+        text-decoration: none;
+        color:#21899c;
+    }
+
+        .forgot-link a:hover {
+            text-decoration: underline;
+        }
+
+@media (max-width: 500px) {
+    .login-form {
+        margin: 30px 15px;
+        padding: 20px;
+    }
+
+        .login-form h2 {
+            font-size: 20px;
+        }
+}

@@ -1,0 +1,80 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/STIndexStyle.css" asp-append-version="true" />
+</head>
+
+@model IEnumerable<AlqudsProject.Models.Teacher>
+
+@{
+    ViewData["Title"] = "قائمة المعلمات";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="get" asp-action="Index" class="filters-container">
+    <div>
+        <a class="add-btn" asp-action="Create">➕ إضافة معلمة جديدة</a>
+    </div>
+    <div>
+        <input type="text" id="searchInput" class="form-control" placeholder="بحث ..." />
+    </div>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>اسم المعلمة</th>
+            <th>مجازة؟</th>
+            <th>الوظيفة</th>
+            <th>الموقع</th>
+            <th>رقم الجوال</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var teacher in Model)
+        {
+            <tr>
+                <td>@teacher.Name</td>
+                <td>@(teacher.IsMojaz ? "نعم" : "لا")</td>
+                <td>@teacher.Job</td>
+                <td>@teacher.Address</td>
+                <td>@(string.IsNullOrEmpty(teacher.PhoneNumber) ? "لا يوجد" : teacher.PhoneNumber)</td>
+                <td class="align-middle text-center">
+                    <div class="dropdown">
+                        <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Teacher/Details/@teacher.TeacherId">عرض تفاصيل المعلمة</a></li>
+                            <li><a class="dropdown-item" href="/Teacher/Edit/@teacher.TeacherId">تعديل معلومات المعلمة</a></li>
+                            <li><a class="dropdown-item" href="/Teacher/Delete/@teacher.TeacherId">حذف المعلمة</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            var hasResult = false;
+            $("table tbody tr").each(function () {
+                var match = $(this).text().toLowerCase().indexOf(value) > -1;
+                $(this).toggle(match);
+                if (match) hasResult = true;
+            });
+
+            if (!hasResult) {
+                if ($("#noResults").length === 0) {
+                    $("table tbody").append("<tr id='noResults'><td colspan='6'>لا توجد نتائج مطابقة</td></tr>");
+                }
+            } else {
+                $("#noResults").remove();
+            }
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

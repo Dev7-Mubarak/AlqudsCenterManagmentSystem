@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "الإدارة";
+}
+<link rel="stylesheet" href="~/css/admin.css" />
+
+<div class="container">
+    <div class="grid-features">
+        <div class="bento-card card1 clickable-card">
+            <a  class="card-link" onclick="window.location.href='@Url.Action("Index", "Halagat")'">
+                <div class="bento-card-description">
+                    <h2>إدارة الحلقات</h2>
+                </div>
+            </a>
+        </div>
+
+        <div class="bento-card card2 clickable-card" onclick="window.location.href='@Url.Action("Index", "Teacher")'">
+            <div class="bento-card-description">
+                <h2>إدارة المعلمات</h2>
+            </div>
+        </div>
+
+        <div class="bento-card card3 clickable-card" onclick="window.location.href='@Url.Action("Index", "Student")'">
+            <div class="bento-card-description">
+                <h2>إدارة الطالبات</h2>
+            </div>
+        </div>
+
+        <div class="bento-card card4 clickable-card" onclick="window.location.href='@Url.Action("Index", "MemorizationPaths")'">
+            <div class="bento-card-description">
+                <h2>إدارة المسارات</h2>
+            </div>
+        </div>
+
+        <div class="bento-card card5 clickable-card" onclick="window.location.href='@Url.Action("Index", "Manhajs")'">
+            <div class="bento-card-description">
+                <h2>إدارة المناهج</h2>
+            </div>
+        </div>
+
+        <div class="bento-card card6 clickable-card" onclick="window.location.href='@Url.Action("TeachersDaily", "Attendance")'">
+            <div class="bento-card-description">
+                <h2>التحضير اليومي للمعلمات</h2>
+            </div>
+        </div>
+    </div>
+</div>
+

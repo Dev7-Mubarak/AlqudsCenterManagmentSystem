@@ -1,0 +1,30 @@
+﻿<link rel="stylesheet" href="~/css/STCreateStyle.css" asp-append-version="true" />
+@model AlqudsProject.Models.Manhaj
+
+<div class="add-student-form">
+    <h2>إضافة منهج جديد</h2>
+
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-columns">
+            <div>
+                <label asp-for="Name">📚 اسم المنهج</label>
+                <input asp-for="Name" class="form-control" placeholder="اسم المنهج" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+
+                <label asp-for="Url">🔗 رابط المنهج</label>
+                <input asp-for="Url" class="form-control" placeholder="رابط للتحميل أو العرض" />
+                <span asp-validation-for="Url" class="text-danger"></span>
+
+                <label asp-for="Picture">🖼️ رابط صورة الغلاف</label>
+                <input asp-for="Picture" class="form-control" placeholder="رابط الصورة (اختياري)" />
+                <span asp-validation-for="Picture" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-buttons">
+            <input type="submit" value="إضافة" class="btn btn-my-submit" />
+            <a asp-action="Index" class="btn btn-my-danger">تراجع</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,62 @@
+﻿@model AlqudsProject.ViewModels.NewsDetailsViewModel
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/detailes.css" asp-append-version="true" />
+
+<section class="container my-5">
+    <div class="news-box">
+        <div class="news-title-box text-center mb-4">
+            <h2 class="news-title">@Model.Title</h2>
+        </div>
+
+        @if (Model.ImagePaths != null && Model.ImagePaths.Count > 1)
+        {
+            <div id="newsCarousel" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="hover">
+                <div class="carousel-indicators">
+                    @for (int i = 0; i < Model.ImagePaths.Count; i++)
+                    {
+                        <button type="button"
+                                data-bs-target="#newsCarousel"
+                                data-bs-slide-to="@i"
+                                class="@(i == 0 ? "active" : "")"
+                                aria-current="@(i == 0 ? "true" : "false")"
+                                aria-label="صورة @(i + 1)">
+                        </button>
+                    }
+                </div>
+
+                <div class="carousel-inner text-center">
+                    @for (int i = 0; i < Model.ImagePaths.Count; i++)
+                    {
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <img src="@Url.Content(Model.ImagePaths[i])" class="d-block mx-auto carousel-img" alt="صورة @(i + 1)" />
+                        </div>
+                    }
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        }
+        else if (Model.ImagePaths != null && Model.ImagePaths.Count == 1)
+        {
+            <div class="text-center mb-4">
+                <img src="@Url.Content(Model.ImagePaths.First())" class="d-block mx-auto carousel-img" alt="صورة الخبر" />
+            </div>
+        }
+
+        <div class="news-content text-end">
+            <h4>@Model.Description @Model.Notes</h4>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a class="btn-back" href="@Url.Action("Index", "Home")#activities">الرجوع للأنشطة</a>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

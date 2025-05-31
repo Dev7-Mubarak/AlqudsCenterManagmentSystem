@@ -1,0 +1,228 @@
+﻿@model List<StudentDailyRow>
+
+@{
+    ViewData["Title"] = "التقييم اليومي";
+    var halaqaId = ViewBag.HalaqaId;
+    var selectedDate = (DateTime)ViewBag.SelectedDate;
+    bool isReadOnly = ViewBag.IsReadOnly;
+}
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/evalution.css" asp-append-version="true"/>
+
+<h2 class="text-center my-4 title">التقييم اليومي للحلقة</h2>
+
+<!-- تقويم اختيار التاريخ -->
+<form method="get" asp-action="StudentsDaily" class="filters-container">
+    <input type="hidden" name="halaqaId" value="@halaqaId" />
+    <div>
+        <label>اختر التاريخ:</label>
+        <input type="date" name="selectedDate" class="form-control d-inline-block"
+               value="@selectedDate.ToString("yyyy-MM-dd")" onchange="this.form.submit()" />
+    </div>
+    <div>
+        <input type="text" id="searchInput" class="form-control " placeholder="بحث باسم الطالبة ..." />
+    </div>
+</form>
+
+<hr />
+
+@if (isReadOnly)
+{
+    <div class="alert alert-warning text-center mt-3">لا يمكن تعديل التقييمات في التواريخ السابقة.</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<form asp-action="SaveDailyEvaluations" asp-controller="Attendance" method="post">
+    <input type="hidden" name="HalaqaId" value="@halaqaId" />
+    <input type="hidden" name="SelectedDate" value="@selectedDate.ToString("yyyy-MM-dd")" />
+
+    <table class="table table-bordered text-center Customtable ">
+        <thead>
+            <tr>
+                <th>اسم الطالبة</th>
+                <th>حفظ اليوم</th>
+                <th>التاريخ</th>
+                <th>الحضور</th>
+                <th>درجة الحفظ</th>
+                <th>درجة المراجعة</th>
+                <th>الدرجة النهائية</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var att = Model[i].AttendanceStatus;
+
+                <tr>
+                    <td>@Model[i].StudentName</td>
+                    <td>@(Model[i].TodaysMemorize ?? "—")</td>
+                    <td>@selectedDate.ToShortDateString()</td>
+
+                    @if (!isReadOnly)
+                    {
+                        <td>
+                            <select name="Evaluations[@i].AttendanceStatus" class="form-select">
+                                @if (att == "حاضر")
+                                {
+                                    <option value="حاضر" selected>حاضر</option>
+                                }
+                                else
+                                {
+                                    <option value="حاضر">حاضر</option>
+                                }
+
+                                @if (att == "غائب")
+                                {
+                                    <option value="غائب" selected>غائب</option>
+                                }
+                                else
+                                {
+                                    <option value="غائب">غائب</option>
+                                }
+
+                                @if (att == "متأخر")
+                                {
+                                    <option value="متأخر" selected>متأخر</option>
+                                }
+                                else
+                                {
+                                    <option value="متأخر">متأخر</option>
+                                }
+                            </select>
+
+
+
+
+                        </td>
+                        <td>
+                            <input type="number" name="Evaluations[@i].MemorizeScore"
+                                   class="form-control" step="0.25" max="2" min="0"
+                                   value="@Model[i].MemorizeScore" />
+                        </td>
+                        <td>
+                            <input type="number" name="Evaluations[@i].ReviewScore"
+                                   class="form-control" step="0.25" max="1" min="0"
+                                   value="@Model[i].ReviewScore" />
+                        </td>
+                        <td>
+                            <input type="number" name="Evaluations[@i].TotalScore"
+                                   id="totalScore_@i" class="form-control"
+                                   value="@Model[i].TotalScore" readonly />
+                        </td>
+                        <td class="align-middle text-center">
+                            <div class="dropdown d-flex justify-content-center align-items-center">
+                                <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton_@i" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton_@i">
+                                    <li><a class="dropdown-item" href="@Url.Action("Details", "Student", new { id = Model[i].StudentID })">عرض تفاصيل الطالب</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Show", "StudentPlan", new { StudentId = Model[i].StudentID })">انشاء / تعديل الخطة</a></li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+                    }
+                    else
+                    {
+                        <td>
+                            <select name="Evaluations[@i].AttendanceStatus" class="form-select">
+                                <option value="حاضر">حاضر</option>
+                                <option value="غائب">غائب</option>
+                                <option value="متأخر">متأخر</option>
+                            </select>
+                        </td>
+                        <td><input type="number" name="Evaluations[@i].MemorizeScore" class="form-control" step="0.25" max="2" min="0" /></td>
+                        <td><input type="number" name="Evaluations[@i].ReviewScore" class="form-control" step="0.25" max="1" min="0" /></td>
+                        <td><input type="number" name="Evaluations[@i].TotalScore" id="totalScore_@i" class="form-control" readonly /></td>
+                        <td class="align-middle text-center">
+                            <div class="dropdown d-flex justify-content-center align-items-center">
+                                <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton_@i" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton_@i">
+                                    <li><a class="dropdown-item" href="@Url.Action("Details", "Student", new { StudentId = Model[i].StudentID })">عرض تفاصيل الطالب</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("Show", "StudentPlan", new { StudentId = Model[i].StudentID })">انشاء / تعديل الخطة</a></li>
+                                </ul>
+                            </div>
+                        </td>
+
+                    }
+
+                    <input type="hidden" name="Evaluations[@i].StudentID" value="@Model[i].StudentID" />
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!isReadOnly)
+    {
+        <div class="text-center mt-4 button-container">
+            <button type="submit" class="btn btn-success px-5">حفظ التقييم</button>
+            <input type="button" value="رجوع" class="btn btn-back px-4" onclick="history.back()"/> 
+
+        </div>
+    }
+    
+
+</form>
+
+<script>
+    // Event listener to calculate total score whenever input values change
+    document.addEventListener("DOMContentLoaded", function () {
+        calculateTotalScores();
+    });
+
+    function calculateTotalScores() {
+        var rows = document.querySelectorAll("table tbody tr");
+        rows.forEach(function (row, index) {
+            var hifzScore = parseFloat(row.querySelector("input[name='Evaluations[" + index + "].MemorizeScore']").value) || 0;
+            var murajaahScore = parseFloat(row.querySelector("input[name='Evaluations[" + index + "].ReviewScore']").value) || 0;
+            var attendanceStatus = row.querySelector("select[name='Evaluations[" + index + "].AttendanceStatus']").value;
+
+            // Calculate total score: MemorizeScore + ReviewScore + half point if present
+            var totalScore = hifzScore + murajaahScore;
+            if (attendanceStatus === "حاضر") {
+                totalScore += 0.5; // Add 0.5 if the student is present
+            }
+
+            // Update the total score input field
+            row.querySelector("input[name='Evaluations[" + index + "].TotalScore']").value = totalScore.toFixed(1);  // Display with one decimal place
+        });
+    }
+
+    // Recalculate total score when any input changes
+    document.querySelectorAll("input[name*='MemorizeScore'], input[name*='ReviewScore'], select[name*='AttendanceStatus']").forEach(function (input) {
+        input.addEventListener("input", calculateTotalScores);
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    var hasResult = false;
+    $("table tbody tr").each(function () {
+        var match = $(this).text().toLowerCase().indexOf(value) > -1;
+        $(this).toggle(match);
+        if (match) hasResult = true;
+    });
+
+    if (!hasResult) {
+        if ($("#noResults").length === 0)
+            $("table tbody").append("<tr id='noResults'><td colspan='8'>لا توجد نتائج مطابقة</td></tr>");
+    } else {
+        $("#noResults").remove();
+    }
+});
+
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

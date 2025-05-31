@@ -1,0 +1,109 @@
+﻿@model List<ExamEntryRow>
+@{
+    ViewData["Title"] = "إضافة اختبار";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var halaqaId = ViewBag.HalaqaId;
+    var selectedDate = ViewBag.SelectedDate != null ? ((DateTime)ViewBag.SelectedDate).ToString("yyyy-MM-dd") : DateTime.Today.ToString("yyyy-MM-dd");
+    var examType = ViewBag.ExamType.ToString();
+}
+
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/evalution.css" asp-append-version="true"/>
+
+<h2 class="text-center my-4 title">إضافة اختبار @examType</h2>
+
+<form method="get" asp-action="Add" class="filters-container">
+    <input type="hidden" name="HalaqaId" value="@halaqaId" />
+    <input type="hidden" name="ExamType" value="@examType" />
+
+    <div>
+        <label>تاريخ الاختبار:</label>
+        <input type="date" name="SelectedDate" value="@selectedDate" class="form-control date-input" />
+    </div>
+    <div>
+        <input type="text" id="searchInput" name="StudentNameFilter" class="form-control" placeholder="بحث باسم الطالبة ..." />
+    </div>
+</form>
+
+<hr />
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form asp-action="SaveExam" method="post">
+    <input type="hidden" name="HalaqaId" value="@halaqaId" />
+    <input type="hidden" name="ExamType" value="@examType" />
+
+    <table class="table table-bordered text-center Customtable ">
+        <thead>
+            <tr>
+                <th>الطالبة</th>
+                <th>درجة الحفظ (50)</th>
+                <th>درجة المراجعة (50)</th>
+                <th>المجموع (100)</th>
+                <th>ملاحظات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Model[i].StudentName
+                        <input type="hidden" name="Exams[@i].StudentID" value="@Model[i].StudentID" />
+                        <input type="hidden" name="Exams[@i].StudentName" value="@Model[i].StudentName" />
+                    </td>
+                    <td>
+                        <input type="number" name="Exams[@i].MemorizeScore" min="0" max="50" step="0.5" class="form-control score-input memorize-input" onchange="calculateTotal(@i)" />
+                    </td>
+                    <td>
+                        <input type="number" name="Exams[@i].ReviewScore" min="0" max="50" step="0.5" class="form-control score-input review-input" onchange="calculateTotal(@i)" />
+                    </td>
+                    <td>
+                        <input type="number" name="Exams[@i].TotalScore" readonly class="form-control score-input total-input" />
+                    </td>
+                    <td>
+                        <input type="text" name="Exams[@i].Notes" class="form-control notes-input" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-center mt-4 button-container">
+        <button type="submit" class="btn btn-success px-5">حفظ</button>
+         <input type="button" value="رجوع" class="btn btn-back px-4" onclick="history.back()"/> 
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        function calculateTotal(index) {
+            const memorize = document.querySelector(`[name='Exams[${index}].MemorizeScore']`).valueAsNumber || 0;
+            const review = document.querySelector(`[name='Exams[${index}].ReviewScore']`).valueAsNumber || 0;
+            const totalInput = document.querySelector(`[name='Exams[${index}].TotalScore']`);
+            totalInput.value = (memorize + review).toFixed(1);
+        }
+        document.querySelectorAll("input[name*='MemorizeScore'], input[name*='ReviewScore']").forEach(function (input) {
+            input.addEventListener("input", function () {
+                const index = input.name.match(/\[(\d+)\]/)[1];
+                calculateTotal(index);
+            });
+        });
+    </script>
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>

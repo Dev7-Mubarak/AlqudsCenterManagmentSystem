@@ -1,0 +1,132 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/STEditStyle.css" asp-append-version="true" />
+</head>
+
+@model AlqudsProject.ViewModels.StudentFormViewModel
+
+<div class="add-student-form">
+    <h2>تعديل بيانات طالبة</h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="StudentID" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-columns">
+            <div>
+                <label asp-for="Name">👤 الاسم الكامل</label>
+                <input asp-for="Name" class="form-control" placeholder="اسم الطالب" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+
+                <label asp-for="BirthDate">🎂 تاريخ الميلاد</label>
+                <input asp-for="BirthDate" type="date" class="form-control" />
+
+                <label asp-for="PhoneNumber">📱 رقم الجوال</label>
+                <input asp-for="PhoneNumber" class="form-control" placeholder="اختياري" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+                <label>👨‍👧‍👦 اختر ولي الأمر</label>
+                <select asp-for="ParentID" class="form-control" id="parentSelect" onchange="checkParentSelection()">
+                    <option value="">اختر ولي أمر</option>
+
+                    @foreach (var parent in Model.Parents)
+                    {
+                        <option value="@parent.Value" >@parent.Text</option>
+                    }
+                    <option value="add_new">➕ إضافة ولي أمر جديد</option>
+                </select>
+
+                <div>
+                    <button type="button" class="btn-my-primary" onclick="showNewParentCard()" id="newParentButton">
+                        ➕ إضافة ولي أمر جديد
+                    </button>
+                </div>
+
+                <!-- كارد إضافة ولي أمر -->
+                <div id="newParentCard" class="parent-card">
+                    <h5>إضافة ولي أمر جديد</h5>
+                    <input type="hidden" id="AddNewParent" name="AddNewParent" value="false" />
+
+                    <label>اسم ولي الأمر</label>
+                    <input name="NewParent.Name" class="form-control" />
+                    <span asp-validation-for="NewParent.Name" class="text-danger"></span>
+
+                    <label>رقم الجوال</label>
+                    <input name="NewParent.MobileNumber" class="form-control" />
+                    <span asp-validation-for="NewParent.MobileNumber" class="text-danger"></span>
+
+                    <label>رقم الهاتف</label>
+                    <input name="NewParent.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="NewParent.PhoneNumber" class="text-danger"></span>
+                </div>
+               
+            </div>
+            <div>
+                 <label asp-for="Address">🏠 العنوان</label>
+                <input asp-for="Address" class="form-control" placeholder="العنوان"/>
+                <span asp-validation-for="Address" class="text-danger"></span>
+
+                <label asp-for="CurrentEducationalLevel">🎓 المستوى التعليمي</label>
+                <input asp-for="CurrentEducationalLevel" class="form-control" placeholder="المستوى التعليمي" />
+                <span asp-validation-for="CurrentEducationalLevel" class="text-danger"></span>
+
+                <label asp-for="EducationalQualification">📘 المؤهل العلمي</label>
+                <input asp-for="EducationalQualification" class="form-control" placeholder="المؤهل العلمي"/>
+                <span asp-validation-for="EducationalQualification" class="text-danger"></span>
+
+                <label asp-for="HalaqaID">🕌 أسم الحلقة</label>
+                <select asp-for="HalaqaID" class="form-control" asp-items="Model.Halaqas">
+                    <option value="">اختر حلقة</option>
+                </select>
+                <span asp-validation-for="HalaqaID" class="text-danger"></span>
+
+            </div>
+        </div>
+
+        <div class="form-buttons">
+            <input type="submit" value="تعديل" class="btn btn-my-submit" />
+            <a asp-action="Index" class="btn btn-my-danger">تراجع</a>
+        </div>
+    </form>
+    <div asp-validation-summary="All" class="text-danger mt-3 text-center"></div>
+</div>
+
+
+
+
+<script>
+
+function checkParentSelection() { 
+    var select = document.getElementById("parentSelect");
+    var card = document.getElementById("newParentCard");
+    var newParentButton = document.getElementById("newParentButton");
+    var addNewParent = document.getElementById("AddNewParent");
+    var parentSelect = document.getElementById("parentSelect");
+
+    if (select.value === "add_new") {
+        card.style.display = "block";     
+        newParentButton.style.display = "none";
+        addNewParent.value = "true";      
+        parentSelect.disabled = true; 
+    } else {
+        card.style.display = "none";     
+        newParentButton.style.display = "block";
+        addNewParent.value = "false";     
+        parentSelect.disabled = false;    
+    }
+}
+
+function showNewParentCard() {
+    var card = document.getElementById("newParentCard");
+    var parentSelect = document.getElementById("parentSelect");
+
+    card.style.display = "block";
+    document.getElementById("AddNewParent").value = "true";
+    document.getElementById("newParentButton").style.display = "none";
+    parentSelect.value = "";
+}
+
+
+
+window.onload = function () {
+    checkParentSelection(); 
+};
+</script>

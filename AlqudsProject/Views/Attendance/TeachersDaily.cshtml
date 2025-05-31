@@ -1,0 +1,127 @@
+﻿@model List<TeacherDailyRow>
+@{
+    ViewData["Title"] = "تحضير المعلمات";
+    var selectedDate = (DateTime)ViewBag.SelectedDate;
+    bool isReadOnly = ViewBag.IsReadOnly;
+}
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/evalution.css" asp-append-version="true"/>
+
+<h2 class="text-center my-4 title">تحضير المعلمات</h2>
+
+<form method="get" asp-action="TeachersDaily" class="filters-container row g-3 my-3">
+    <div class="col-md-4">
+        <label>اختر التاريخ:</label>
+        <input type="date" name="selectedDate" class="form-control"
+               value="@selectedDate.ToString("yyyy-MM-dd")" onchange="this.form.submit()" />
+    </div>
+    <div class="col-md-4">
+        <input type="text" id="searchInput" class="form-control" placeholder="بحث باسم المعلمة ..." />
+    </div>
+</form>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (isReadOnly)
+{
+    <div class="alert alert-warning text-center">لا يمكن تعديل التحضير في التواريخ السابقة.</div>
+}
+
+<form asp-action="SaveTeacherDailyAttendances" method="post">
+    <input type="hidden" name="SelectedDate" value="@selectedDate.ToString("yyyy-MM-dd")" />
+
+    <table class="table table-bordered text-center Customtable">
+        <thead>
+            <tr>
+                <th>اسم المعلمة</th>
+                <th>التاريخ</th>
+                <th>الحضور</th>
+                <th>تم الإدخال بواسطة</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var att = Model[i].AttendanceStatus;
+                <tr>
+                    <td>@Model[i].TeacherName</td>
+                    <td>@selectedDate.ToShortDateString()</td>
+
+                    @if (!isReadOnly)
+                    {
+                        <td>
+                            <select name="Attendances[@i].Status" class="form-select">
+                                @* نولد كل خيار على حدة بحسب الحالة *@
+                                @if (att == "حاضر")
+                                {
+                                    <option value="حاضر" selected>حاضر</option>
+                                }
+                                else
+                                {
+                                    <option value="حاضر">حاضر</option>
+                                }
+
+                                @if (att == "غائب")
+                                {
+                                    <option value="غائب" selected>غائب</option>
+                                }
+                                else
+                                {
+                                    <option value="غائب">غائب</option>
+                                }
+
+                                @if (att == "متأخر")
+                                {
+                                    <option value="متأخر" selected>متأخر</option>
+                                }
+                                else
+                                {
+                                    <option value="متأخر">متأخر</option>
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" value="@Model[i].RecorderName" readonly />
+                        </td>
+                    }
+                    else
+                    {
+                        <td>@Model[i].AttendanceStatus</td>
+                        <td>@Model[i].RecorderName</td>
+                    }
+
+                    <input type="hidden" name="Attendances[@i].TeacherId" value="@Model[i].TeacherID" />
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!isReadOnly)
+    {
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success px-5">حفظ التحضير</button>
+                        <input type="button" value="رجوع" class="btn btn-back px-4" onclick="history.back()"/> 
+
+        </div>
+    }
+   
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>

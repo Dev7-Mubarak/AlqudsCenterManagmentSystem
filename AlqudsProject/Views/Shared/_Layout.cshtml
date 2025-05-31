@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AlqudsProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AlqudsProject.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <nav class="main-navbar">
+        <a href="@Url.Action("Index", "Home")">
+            <img src="~/images/logo1.png" alt="شعار المركز">
+        </a>
+        <ul>
+            <li><a href="@Url.Action("Index", "Home")#activities">الأخبار</a></li>
+            <li><a href="@Url.Action("Index", "Home")#about">من نحن</a></li>
+            <li><a href="#contact">تواصل معنا</a></li>
+        
+            @if (Context.Session.GetString("UserRole") == "إداري")
+            {
+                <li><a href="/Dashboard/Admin" class="btn-login" style="color: white;">إدارة</a></li>
+                <li>
+                    <a href="javascript:void(0);" onclick="showLogoutModal();" class="btn-login" style="color: white;">تسجيل الخروج</a>
+                </li>
+            }
+            else if (Context.Session.GetString("UserRole") == "معلم")
+            {
+                var count = Context.Session.GetInt32("HalaqatCount") ?? 0;
+                var showDetails = Context.Session.GetString("ShowHalaqaDetailsButton") == "true";
+                var halaqaId = Context.Session.GetInt32("HalaqaDetailsID") ?? 0;
+                if (showDetails && halaqaId != 0)
+                    {
+                        
+                      <li>
+                        <a href="javascript:void(0);" id="addExamDropdown">إضافة اختبار</a>
+                            <ul id="examTypeDropdown" class="dropdown-menu" style="display:none;">
+                                 <li><a href="#" onclick="navigateToAddExam('شهري')">شهري</a></li>
+                                 <li><a href="#" onclick="navigateToAddExam('نهائي')">نهائي</a></li>
+                            </ul>
+                      </li>
+
+                        <li>
+                            <a href="@Url.Action("Details", "Halagat", new { id = ViewBag.HalaqaId })" class="btn-login" style="color: white;">
+                            عرض تفاصيل الحلقة       
+                            </a>
+                        </li>
+                    }
+                    
+                else if (count == 1)
+                {
+                    <li><a href="/Teacher/MyHalaqa" class="btn-login"style="color: white;">حلقتي</a></li>
+                    <li>
+                        <a href="javascript:void(0);" onclick="showLogoutModal();" class="btn-login" style="color: white;">تسجيل الخروج</a>
+                    </li>
+                }
+                else
+                {
+                    <li><a href="/Dashboard/Teacher" class="btn-login" style="color: white;">حلقاتي</a></li>
+                    <li>
+                        <a href="javascript:void(0);" onclick="showLogoutModal();" class="btn-login" style="color: white;">تسجيل الخروج</a>
+                    </li>
+                }
+            }
+            else
+            {
+                <li><a href="/Home/Login" class="btn-login" style="color: white;">دخول المعلمات والإداريات</a></li>
+            }
+        </ul>
+    </nav>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="foot" id="contact">
+            <div class="footerCol1">
+                <h3>موقعنا</h3>
+                <p><i class="bi bi-geo-alt-fill"></i>اليمن_المكلا_الديس</p>
+            </div>
+            <div class="footerCol2">
+                <img src="~/images/logo1.png" alt="logo" style="height:180px;">
+            </div>
+            <div class="footerCol3">
+                <h3>تواصل معنا عبر: </h3>
+                <ul>
+                    <li>alquds_quran_center<i class="bi bi-instagram"></i></li>
+                    <li>00967308536<i class="bi bi-telephone-fill"></i></li>
+                    <li> 00967739366786<i class="bi bi-whatsapp"></i></li>
+                    <li><a href="https://wa.me/967739366786" target="_blank">رابط الواتساب</a></li>
+                </ul>
+            </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+           document.getElementById("addExamDropdown").addEventListener("click", function () {
+            var dropdown = document.getElementById("examTypeDropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        });
+
+        function navigateToAddExam(examType) {
+            const halaqaId = '@ViewBag.HalaqaId'; 
+            const selectedDate = '@ViewBag.SelectedDate?.ToString("yyyy-MM-dd")'; 
+            const url = `/Exams/Add?halaqaId=${halaqaId}&selectedDate=${selectedDate}&examType=${encodeURIComponent(examType)}`;
+            window.location.href = url;
+        }
+    </script>
+        <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+              <div class="modal-header">
+                <h5 class="modal-title w-100" id="logoutModalLabel">تأكيد تسجيل الخروج</h5>
+              </div>
+              <div class="modal-body">
+                هل أنت متأكد أنك تريد تسجيل الخروج؟
+              </div>
+              <div class="modal-footer justify-content-center">
+                <a href="/Home/Logout" class="btn btn-danger" style="color:white">نعم</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لا</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+            function showLogoutModal() {
+                var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));
+                logoutModal.show();
+            }
+        </script>
+
+
+</body>
+</html>

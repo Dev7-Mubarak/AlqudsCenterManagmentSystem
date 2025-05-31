@@ -1,0 +1,43 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/STDetailsStyle.css" asp-append-version="true" />
+</head>
+@model AlqudsProject.Models.MemorizationPath
+
+@{
+    ViewData["Title"] = "تفاصيل المسار";
+}
+
+<div class="details-container">
+    <div class="title-desigen">
+        <div class="profile-image-container">
+            <!-- صورة ثابتة للمسار -->
+            <img src="~/images/PathsPic.jpg" alt="صورة المسار" class="profile-image">
+        </div>
+        <div>
+            <h2 class="student-name">@Model.Name</h2>
+        </div>
+    </div>
+
+    <div class="Section">
+        <div class="section-1">
+            <div class="student-info-group">
+                <strong class="info-label">اسم المسار:</strong>
+                <span class="info-value">@Model.Name</span>
+            </div>
+
+            <div class="student-info-group">
+                <strong class="info-label">بداية الحفظ:</strong>
+                <span class="info-value">@Model.MemorizeFrom</span>
+            </div>
+
+            <div class="student-info-group">
+                <strong class="info-label">نهاية الحفظ:</strong>
+                <span class="info-value">@Model.MemorizeTo</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <input type="button" value="رجوع" class="back-button" onclick="history.back()" />
+    </div>
+</div>

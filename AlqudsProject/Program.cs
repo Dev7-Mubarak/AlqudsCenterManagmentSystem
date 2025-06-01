@@ -5,7 +5,7 @@ using System.IO;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<Alquds_CenterContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("localConnection")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

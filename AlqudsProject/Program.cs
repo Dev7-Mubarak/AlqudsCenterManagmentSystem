@@ -13,8 +13,6 @@ builder.Services.AddControllersWithViews();
 // Add services builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 
-
-
 var app = builder.Build();
 
 // Configure pipeline app.UseStaticFiles(); app.UseRouting();

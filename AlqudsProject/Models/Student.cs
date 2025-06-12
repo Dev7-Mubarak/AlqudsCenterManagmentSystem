@@ -25,6 +25,8 @@ namespace AlqudsProject.Models
         public string? EducationalQualification { get; set; }
         public int HalaqaId { get; set; }
         public int? ParentId { get; set; }
+        public string? BeginOfMemorize { get; set; }
+        public string? MemorizationQuorum { get; set; }
 
         public virtual Halaqa Halaqa { get; set; } = null!;
         public virtual Parent? Parent { get; set; }

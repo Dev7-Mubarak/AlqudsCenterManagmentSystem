@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace AlqudsProject.Controllers
+namespace AlqudsProject.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class TeacherController : Controller
     {
         private readonly Alquds_CenterContext _context;
@@ -35,7 +36,7 @@ namespace AlqudsProject.Controllers
                 .Select(h => new
                 {
                     HalaqaName = h.Name,
-                    Period = h.Period,
+                    h.Period,
                     AcademicYear = h.AcademicYear.AcademicYear1,
                     StudentCount = _context.Students.Count(s => s.HalaqaId == h.HalaqaId)
                 })

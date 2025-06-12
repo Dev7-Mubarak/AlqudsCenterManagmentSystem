@@ -2,8 +2,9 @@
 using AlqudsProject.ViewModels;
 using AlqudsProject.Data;
 using AlqudsProject.Models;
-namespace AlqudsProject.Controllers
+namespace AlqudsProject.Areas.Theachers.Controllers
 {
+    [Area("Theachers")]
     public class ExamsController : Controller
     {
         private readonly Alquds_CenterContext _context;

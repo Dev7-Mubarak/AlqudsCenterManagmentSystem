@@ -11,11 +11,9 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 
-
-
-
-namespace AlqudsProject.Controllers
+namespace AlqudsProject.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class StudentController : Controller
     {        
         private readonly Alquds_CenterContext _context;

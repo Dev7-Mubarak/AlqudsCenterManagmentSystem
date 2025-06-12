@@ -37,4 +37,11 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\ViewModels\" />
+    <Folder Include="Areas\Theachers\ViewModels\" />
+    <Folder Include="Areas\Theachers\Models\" />
+  </ItemGroup>
+
 </Project>

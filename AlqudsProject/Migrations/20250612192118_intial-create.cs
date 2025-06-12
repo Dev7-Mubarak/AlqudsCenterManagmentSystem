@@ -27,20 +27,42 @@ namespace AlqudsProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Account",
+                name: "AspNetRoles",
                 columns: table => new
                 {
-                    AccountID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    PasswordHash = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
-                    FullName = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: true),
-                    Phone = table.Column<string>(type: "varchar(15)", unicode: false, maxLength: 15, nullable: true)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Account", x => x.AccountID);
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,19 +108,6 @@ namespace AlqudsProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Parents", x => x.ParentID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Role",
-                columns: table => new
-                {
-                    RoleID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Role", x => x.RoleID);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,6 +181,112 @@ namespace AlqudsProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CenterAnnualReports",
                 columns: table => new
                 {
@@ -189,7 +304,7 @@ namespace AlqudsProject.Migrations
                     Recommendations = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedByNavigationAccountId = table.Column<int>(type: "int", nullable: true)
+                    CreatedByNavigationId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -200,10 +315,10 @@ namespace AlqudsProject.Migrations
                         principalTable: "AcademicYear",
                         principalColumn: "AcademicYearID");
                     table.ForeignKey(
-                        name: "FK_CenterAnnualReports_Account_CreatedByNavigationAccountId",
-                        column: x => x.CreatedByNavigationAccountId,
-                        principalTable: "Account",
-                        principalColumn: "AccountID");
+                        name: "FK_CenterAnnualReports_AspNetUsers_CreatedByNavigationId",
+                        column: x => x.CreatedByNavigationId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -220,7 +335,7 @@ namespace AlqudsProject.Migrations
                     IsActivity = table.Column<bool>(type: "bit", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PaidBy = table.Column<int>(type: "int", nullable: true),
-                    PaidByNavigationAccountId = table.Column<int>(type: "int", nullable: true)
+                    PaidByNavigationId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -231,37 +346,10 @@ namespace AlqudsProject.Migrations
                         principalTable: "AcademicYear",
                         principalColumn: "AcademicYearID");
                     table.ForeignKey(
-                        name: "FK_Expenses_Account_PaidByNavigationAccountId",
-                        column: x => x.PaidByNavigationAccountId,
-                        principalTable: "Account",
-                        principalColumn: "AccountID");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoleAccount",
-                columns: table => new
-                {
-                    RoleAccountID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountID = table.Column<int>(type: "int", nullable: false),
-                    RoleID = table.Column<int>(type: "int", nullable: false),
-                    TeacherID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoleAccount", x => x.RoleAccountID);
-                    table.ForeignKey(
-                        name: "FK_RoleAccount_Account_AccountID",
-                        column: x => x.AccountID,
-                        principalTable: "Account",
-                        principalColumn: "AccountID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RoleAccount_Role_RoleID",
-                        column: x => x.RoleID,
-                        principalTable: "Role",
-                        principalColumn: "RoleID",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Expenses_AspNetUsers_PaidByNavigationId",
+                        column: x => x.PaidByNavigationId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -300,16 +388,16 @@ namespace AlqudsProject.Migrations
                     Date = table.Column<DateTime>(type: "date", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     RecordedBy = table.Column<int>(type: "int", nullable: true),
-                    RecordedByNavigationAccountId = table.Column<int>(type: "int", nullable: true)
+                    RecordedByNavigationId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TeacherAttendance", x => x.TeacherAttendanceID);
                     table.ForeignKey(
-                        name: "FK_TeacherAttendance_Account_RecordedByNavigationAccountId",
-                        column: x => x.RecordedByNavigationAccountId,
-                        principalTable: "Account",
-                        principalColumn: "AccountID");
+                        name: "FK_TeacherAttendance_AspNetUsers_RecordedByNavigationId",
+                        column: x => x.RecordedByNavigationId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TeacherAttendance_Teacher_TeacherID",
                         column: x => x.TeacherID,
@@ -648,32 +736,6 @@ namespace AlqudsProject.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Account",
-                columns: new[] { "AccountID", "Email", "FullName", "PasswordHash", "Phone", "Username" },
-                values: new object[,]
-                {
-                    { 1, "fatima.ali@example.com", "فاطمة علي محمد", "pass123", "771234567", "admin1" },
-                    { 2, "khadija.omar@example.com", "خديجة عمر عبدالله", "pass456", "772345678", "teacher1" },
-                    { 3, "aisha.khalid@example.com", "عائشة خالد يوسف", "pass789", "773456789", "teacher2" },
-                    { 4, "ruqaya.saeed@example.com", "رقية سعيد إبراهيم", "pass101", "774567890", "admin2" },
-                    { 5, "maryam.hassan@example.com", "مريم حسن إسماعيل", "pass112", "775678901", "teacher3" },
-                    { 6, "asmaa.hussein@example.com", "أسماء حسين أحمد", "pass131", "776789012", "teacher4" },
-                    { 7, "zainab.mahmoud@example.com", "زينب محمود محمد", "pass141", "777890123", "admin3" },
-                    { 8, "hafsa.sami@example.com", "حفصة سامي عمر", "pass151", "778901234", "teacher5" },
-                    { 9, "sumaya.anwar@example.com", "سمية أنور عبدالله", "pass161", "779012345", "teacher6" },
-                    { 10, "omkulthum.yasser@example.com", "أم كلثوم ياسر يوسف", "pass171", "770123456", "admin4" },
-                    { 11, "juwayriya.karim@example.com", "جويرية كريم إبراهيم", "pass181", "771234568", "teacher7" },
-                    { 12, "safiya.nabil@example.com", "صفية نبيل إسماعيل", "pass191", "772345679", "teacher8" },
-                    { 13, "hind.amjad@example.com", "هند أمجد محمد", "pass212", "774567891", "teacher9" },
-                    { 14, "thuwayba.baha@example.com", "ثويبة بهاء عمر", "pass222", "775678902", "teacher10" },
-                    { 15, "naila.shawqi@example.com", "نائلة شوقي يوسف", "pass242", "777890124", "teacher11" },
-                    { 16, "layla.rashid@example.com", "ليلى رشيد إبراهيم", "pass252", "778901235", "teacher12" },
-                    { 17, "ramla.fuad@example.com", "رملة فؤاد أحمد", "pass272", "770123457", "teacher13" },
-                    { 18, "suad.jamal@example.com", "سعاد جمال محمد", "pass282", "771234569", "teacher14" },
-                    { 19, "iman.nader@example.com", "إيمان نادر عبدالله", "pass303", "773456781", "teacher15" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Manhaj",
                 columns: new[] { "ManhajID", "Name", "Picture", "URL" },
                 values: new object[,]
@@ -712,14 +774,7 @@ namespace AlqudsProject.Migrations
                     { 8, "05388888899", "سعيد سامي عمر", "309870" },
                     { 9, "05399999900", "إبراهيم أنور عبدالله", "334560" },
                     { 10, "05300000011", "إسماعيل ياسر يوسف", "365430" },
-                    { 11, "05311111222", "أبو ليلى خالد إبراهيم", "312350" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Parents",
-                columns: new[] { "ParentID", "MobileNumber", "Name", "PhoneNumber" },
-                values: new object[,]
-                {
+                    { 11, "05311111222", "أبو ليلى خالد إبراهيم", "312350" },
                     { 12, "05322222333", "أبو نور سعيد إسماعيل", "343220" },
                     { 13, "05333333444", "أبو هدى حسن أحمد", "367900" },
                     { 14, "05344444555", "أبو منى حسين محمد", "398770" },
@@ -734,15 +789,6 @@ namespace AlqudsProject.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Role",
-                columns: new[] { "RoleID", "RoleName" },
-                values: new object[,]
-                {
-                    { 1, "إداري" },
-                    { 2, "معلم" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Teacher",
                 columns: new[] { "TeacherID", "Address", "AmountOfMemorization", "BirthDate", "Courses", "EducationalQualification", "Experience", "Idnumber", "IsAdministrator", "IsMojaz", "Job", "MaritalStatus", "Name", "PassportNumber", "PhoneNumber" },
                 values: new object[,]
@@ -754,12 +800,12 @@ namespace AlqudsProject.Migrations
 
             migrationBuilder.InsertData(
                 table: "Expenses",
-                columns: new[] { "ExpenseID", "AcademicYearID", "Amount", "Date", "Description", "IsActivity", "Notes", "PaidBy", "PaidByNavigationAccountId", "Title" },
+                columns: new[] { "ExpenseID", "AcademicYearID", "Amount", "Date", "Description", "IsActivity", "Notes", "PaidBy", "PaidByNavigationId", "Title" },
                 values: new object[,]
                 {
-                    { 1, 1, 30000.00m, new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "\nفي ظل سعي مركز القدس لتحفيظ القرآن الكريم لتوسيع خدماته التعليمية وتلبية احتياجات المجتمع المحلي، تم بحمد الله وتوفيقه تدشين \"روضة مركز القدس\"، في حفل بهيج أقيم في مقر المركز، بحضور عدد من القيادات التربوية وأمهات الطالبات ومعلمات المركز.", true, "وقد استُهل الحفل بآيات من الذكر الحكيم، ثم تلتها كلمة ترحيبية من إدارة المركز، أشادت خلالها بأهمية مرحلة الطفولة المبكرة في بناء الشخصية وتنمية القيم، مؤكدة أن افتتاح الروضة يُعد خطوة نوعية ضمن مسيرة المركز في تقديم تعليم قرآني وتربوي متكامل يبدأ من الطفولة وحتى سن الفتيات.\nوقد اشتمل حفل التدشين على فقرات متعددة، منها عرض مرئي تعريفي بمرافق الروضة الجديدة وتجهيزاتها الحديثة، وجولة ميدانية اطلع فيها الزوار على الفصول الدراسية المصممة وفق بيئة تعليمية جاذبة وآمنة، إضافة إلى أنشطة ترفيهية تفاعلية للأطفال، وركن للخط والرسم، مما أضفى على الأجواء طابعًا من البهجة والسرور.\nكما تم في نهاية الحفل تكريم الطاقم التربوي والإداري القائم على الروضة، وتوزيع هدايا رمزية على الأطفال، وتوثيق لحظات التدشين بعدسة فريق التصوير الخاص بالمركز.\nويأتي هذا المشروع انطلاقًا من رؤية المركز الطموحة في بناء جيل قرآني منسجم مع القيم الإسلامية، وتوفير بيئة تعليمية راقية تنمّي القدرات الذهنية والحسية والحركية للطفل، وتُعزز من ارتباطه بالقرآن الكريم منذ سنواته الأولى.\n", 4, null, "تدشين افتتاح روضة مركز القدس" },
-                    { 2, 1, 30000.00m, new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "\nضمن الخطة التربوية التي ينتهجها مركز القدس لتحفيظ القرآن الكريم، وحرصًا على ترسيخ المحفوظ في صدور الطالبات، نظّم المركز \"يوم السرد الشهري\"، وهو برنامج تقييم شامل يهدف إلى متابعة الحفظ وتثبيته وتقدير الجهود المبذولة من الطالبات.", true, "وقد شاركت في هذا اليوم جميع الطالبات من مختلف الحلقات والمستويات، حيث تم تنظيم جلسات سرد جماعي وفردي أمام لجان التقييم المتخصصة من معلمات ذوات خبرة في التجويد وضبط المصحف، وشملت عملية التقييم مراجعة شاملة للمحفوظات السابقة وفق الخطة الفصلية المعتمدة لكل طالبة.\nسادت الأجواء روح من الحماس والجدية، حيث حرصت الطالبات على تقديم أفضل ما لديهن من أداء وجودة في الحفظ، بينما قامت اللجان بتوثيق النتائج ورفع التقارير لكل حلقة لتُؤخذ بعين الاعتبار في إعداد تقارير الأداء السنوي.\nوتخلل اليوم فقرات تحفيزية للطالبات المتقنات، حيث تم توزيع شهادات تقدير وهدايا رمزية لكل طالبة أظهرت التزامًا وانضباطًا في حفظها، مما عزّز من روح المنافسة الإيجابية بينهن، وشجع غيرهن على المثابرة.\nويُعد هذا البرنامج أحد أهم البرامج التربوية التي يحرص عليها المركز، لكونه يُسهم في متابعة تطور كل طالبة بشكل دوري، ويمنح ولي الأمر والمعلمة صورة واضحة عن مستوى الحفظ والثغرات التي تحتاج مراجعة ومعالجة.\nختامًا، فإن يوم السرد الشهري ليس مجرد تقييم، بل هو احتفال شهري بمنهجية القرآن، وانتصار للإصرار والمثابرة، وتجسيد عملي لمقولة: \"خيركم من تعلم القرآن وعلّمه\".", 4, null, "يوم السرد الشهري لتثبيت المحفوظ" },
-                    { 3, 1, 30000.00m, new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "\nفي إطار تعزيز الكفاءة المهنية وبناء بيئة تعليمية مؤثرة وفاعلة، شاركت معلمات وإداريات مركز القدس لتحفيظ القرآن الكريم في أنشطة القيادة التربوية التي تهدف إلى تطوير المهارات القيادية، وتنمية القدرات في التخطيط والتنظيم والإشراف التربوي.", true, "\nوقد تمثلت المشاركة في حضور اللقاءات التربوية الدورية، والمساهمة في إعداد الخطط التعليمية للحلقات، وتنظيم الفعاليات القرآنية والتربوية داخل المركز، وتقديم المبادرات النوعية التي تُسهم في رفع جودة الأداء داخل الحلقة وخارجها.\nكما شاركت عدد من المعلمات في مهام قيادية داخل المركز، مثل الإشراف العام على الحلقات، وتوجيه المعلمات المستجدات، وإعداد ملفات الإنجاز، ومتابعة تنفيذ المعايير التعليمية والتقويمية.\nوتعكس هذه المشاركة روح المسؤولية العالية لدى الفريق التربوي في المركز، وحرصه على ترسيخ القيم القيادية القائمة على العمل الجماعي، والقدوة الصالحة، والتطوير المستمر، بما يواكب رؤية المركز في إعداد جيل قرآني متمكن، تقوده كوادر مؤهلة قياديًا وتربويًا.", 4, null, "المشاركة في القيادة التربوية" }
+                    { 1, 1, 30000.00m, new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "\r\nفي ظل سعي مركز القدس لتحفيظ القرآن الكريم لتوسيع خدماته التعليمية وتلبية احتياجات المجتمع المحلي، تم بحمد الله وتوفيقه تدشين \"روضة مركز القدس\"، في حفل بهيج أقيم في مقر المركز، بحضور عدد من القيادات التربوية وأمهات الطالبات ومعلمات المركز.", true, "وقد استُهل الحفل بآيات من الذكر الحكيم، ثم تلتها كلمة ترحيبية من إدارة المركز، أشادت خلالها بأهمية مرحلة الطفولة المبكرة في بناء الشخصية وتنمية القيم، مؤكدة أن افتتاح الروضة يُعد خطوة نوعية ضمن مسيرة المركز في تقديم تعليم قرآني وتربوي متكامل يبدأ من الطفولة وحتى سن الفتيات.\r\nوقد اشتمل حفل التدشين على فقرات متعددة، منها عرض مرئي تعريفي بمرافق الروضة الجديدة وتجهيزاتها الحديثة، وجولة ميدانية اطلع فيها الزوار على الفصول الدراسية المصممة وفق بيئة تعليمية جاذبة وآمنة، إضافة إلى أنشطة ترفيهية تفاعلية للأطفال، وركن للخط والرسم، مما أضفى على الأجواء طابعًا من البهجة والسرور.\r\nكما تم في نهاية الحفل تكريم الطاقم التربوي والإداري القائم على الروضة، وتوزيع هدايا رمزية على الأطفال، وتوثيق لحظات التدشين بعدسة فريق التصوير الخاص بالمركز.\r\nويأتي هذا المشروع انطلاقًا من رؤية المركز الطموحة في بناء جيل قرآني منسجم مع القيم الإسلامية، وتوفير بيئة تعليمية راقية تنمّي القدرات الذهنية والحسية والحركية للطفل، وتُعزز من ارتباطه بالقرآن الكريم منذ سنواته الأولى.\r\n", 4, null, "تدشين افتتاح روضة مركز القدس" },
+                    { 2, 1, 30000.00m, new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "\r\nضمن الخطة التربوية التي ينتهجها مركز القدس لتحفيظ القرآن الكريم، وحرصًا على ترسيخ المحفوظ في صدور الطالبات، نظّم المركز \"يوم السرد الشهري\"، وهو برنامج تقييم شامل يهدف إلى متابعة الحفظ وتثبيته وتقدير الجهود المبذولة من الطالبات.", true, "وقد شاركت في هذا اليوم جميع الطالبات من مختلف الحلقات والمستويات، حيث تم تنظيم جلسات سرد جماعي وفردي أمام لجان التقييم المتخصصة من معلمات ذوات خبرة في التجويد وضبط المصحف، وشملت عملية التقييم مراجعة شاملة للمحفوظات السابقة وفق الخطة الفصلية المعتمدة لكل طالبة.\r\nسادت الأجواء روح من الحماس والجدية، حيث حرصت الطالبات على تقديم أفضل ما لديهن من أداء وجودة في الحفظ، بينما قامت اللجان بتوثيق النتائج ورفع التقارير لكل حلقة لتُؤخذ بعين الاعتبار في إعداد تقارير الأداء السنوي.\r\nوتخلل اليوم فقرات تحفيزية للطالبات المتقنات، حيث تم توزيع شهادات تقدير وهدايا رمزية لكل طالبة أظهرت التزامًا وانضباطًا في حفظها، مما عزّز من روح المنافسة الإيجابية بينهن، وشجع غيرهن على المثابرة.\r\nويُعد هذا البرنامج أحد أهم البرامج التربوية التي يحرص عليها المركز، لكونه يُسهم في متابعة تطور كل طالبة بشكل دوري، ويمنح ولي الأمر والمعلمة صورة واضحة عن مستوى الحفظ والثغرات التي تحتاج مراجعة ومعالجة.\r\nختامًا، فإن يوم السرد الشهري ليس مجرد تقييم، بل هو احتفال شهري بمنهجية القرآن، وانتصار للإصرار والمثابرة، وتجسيد عملي لمقولة: \"خيركم من تعلم القرآن وعلّمه\".", 4, null, "يوم السرد الشهري لتثبيت المحفوظ" },
+                    { 3, 1, 30000.00m, new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "\r\nفي إطار تعزيز الكفاءة المهنية وبناء بيئة تعليمية مؤثرة وفاعلة، شاركت معلمات وإداريات مركز القدس لتحفيظ القرآن الكريم في أنشطة القيادة التربوية التي تهدف إلى تطوير المهارات القيادية، وتنمية القدرات في التخطيط والتنظيم والإشراف التربوي.", true, "\r\nوقد تمثلت المشاركة في حضور اللقاءات التربوية الدورية، والمساهمة في إعداد الخطط التعليمية للحلقات، وتنظيم الفعاليات القرآنية والتربوية داخل المركز، وتقديم المبادرات النوعية التي تُسهم في رفع جودة الأداء داخل الحلقة وخارجها.\r\nكما شاركت عدد من المعلمات في مهام قيادية داخل المركز، مثل الإشراف العام على الحلقات، وتوجيه المعلمات المستجدات، وإعداد ملفات الإنجاز، ومتابعة تنفيذ المعايير التعليمية والتقويمية.\r\nوتعكس هذه المشاركة روح المسؤولية العالية لدى الفريق التربوي في المركز، وحرصه على ترسيخ القيم القيادية القائمة على العمل الجماعي، والقدوة الصالحة، والتطوير المستمر، بما يواكب رؤية المركز في إعداد جيل قرآني متمكن، تقوده كوادر مؤهلة قياديًا وتربويًا.", 4, null, "المشاركة في القيادة التربوية" }
                 });
 
             migrationBuilder.InsertData(
@@ -789,27 +835,6 @@ namespace AlqudsProject.Migrations
                     { 8, 1, "حلقة الإحسان", "مسائي", 2 },
                     { 9, 1, "حلقة الصديق", "صباحي", 2 },
                     { 10, 1, "حلقة الفاروق", "مسائي", 3 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "RoleAccount",
-                columns: new[] { "RoleAccountID", "AccountID", "RoleID", "TeacherID" },
-                values: new object[,]
-                {
-                    { 1, 1, 1, 1 },
-                    { 2, 2, 2, 2 },
-                    { 3, 3, 2, 3 },
-                    { 4, 4, 1, 4 },
-                    { 5, 5, 2, 5 },
-                    { 6, 6, 2, 6 },
-                    { 7, 7, 1, 7 },
-                    { 8, 8, 2, 8 },
-                    { 9, 9, 2, 9 },
-                    { 10, 10, 1, 10 },
-                    { 11, 11, 2, 11 },
-                    { 12, 12, 2, 12 },
-                    { 13, 13, 1, 14 },
-                    { 14, 14, 2, 15 }
                 });
 
             migrationBuilder.InsertData(
@@ -857,26 +882,6 @@ namespace AlqudsProject.Migrations
                 values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 8.0, null, 8.0, 3, 16.0 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Account_Email",
-                table: "Account",
-                column: "Email",
-                unique: true,
-                filter: "[Email] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Account_Phone",
-                table: "Account",
-                column: "Phone",
-                unique: true,
-                filter: "[Phone] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Account_Username",
-                table: "Account",
-                column: "Username",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ActivitiesImages_ExpenseID",
                 table: "ActivitiesImages",
                 column: "ExpenseID");
@@ -887,14 +892,53 @@ namespace AlqudsProject.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetRoleClaims_RoleId",
+                table: "AspNetRoleClaims",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "AspNetRoles",
+                column: "NormalizedName",
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserClaims_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserLogins_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId",
+                table: "AspNetUserRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CenterAnnualReports_AcademicYearId",
                 table: "CenterAnnualReports",
                 column: "AcademicYearId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CenterAnnualReports_CreatedByNavigationAccountId",
+                name: "IX_CenterAnnualReports_CreatedByNavigationId",
                 table: "CenterAnnualReports",
-                column: "CreatedByNavigationAccountId");
+                column: "CreatedByNavigationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DailyEvaluation_StudentID",
@@ -917,9 +961,9 @@ namespace AlqudsProject.Migrations
                 column: "AcademicYearID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Expenses_PaidByNavigationAccountId",
+                name: "IX_Expenses_PaidByNavigationId",
                 table: "Expenses",
-                column: "PaidByNavigationAccountId");
+                column: "PaidByNavigationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FinalExam_StudentID",
@@ -982,16 +1026,6 @@ namespace AlqudsProject.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RoleAccount_AccountID",
-                table: "RoleAccount",
-                column: "AccountID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RoleAccount_RoleID",
-                table: "RoleAccount",
-                column: "RoleID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Student_HalaqaID",
                 table: "Student",
                 column: "HalaqaID");
@@ -1002,9 +1036,9 @@ namespace AlqudsProject.Migrations
                 column: "ParentID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TeacherAttendance_RecordedByNavigationAccountId",
+                name: "IX_TeacherAttendance_RecordedByNavigationId",
                 table: "TeacherAttendance",
-                column: "RecordedByNavigationAccountId");
+                column: "RecordedByNavigationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TeacherAttendance_TeacherID",
@@ -1024,6 +1058,21 @@ namespace AlqudsProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "AnnualReports");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserLogins");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
                 name: "CenterAnnualReports");
@@ -1056,9 +1105,6 @@ namespace AlqudsProject.Migrations
                 name: "Path_Halaqa_Relationship");
 
             migrationBuilder.DropTable(
-                name: "RoleAccount");
-
-            migrationBuilder.DropTable(
                 name: "TeacherAttendance");
 
             migrationBuilder.DropTable(
@@ -1066,6 +1112,9 @@ namespace AlqudsProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Expenses");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "MemorizePlan");
@@ -1080,10 +1129,7 @@ namespace AlqudsProject.Migrations
                 name: "MemorizationPath");
 
             migrationBuilder.DropTable(
-                name: "Role");
-
-            migrationBuilder.DropTable(
-                name: "Account");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Student");

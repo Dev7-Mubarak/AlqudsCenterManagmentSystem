@@ -11,7 +11,7 @@ namespace AlqudsProject.Models
         public string Status { get; set; } = null!;
         public int? RecordedBy { get; set; }
 
-        public virtual Account? RecordedByNavigation { get; set; }
+        public virtual AppUser? RecordedByNavigation { get; set; }
         public virtual Teacher? Teacher { get; set; }
     }
 }

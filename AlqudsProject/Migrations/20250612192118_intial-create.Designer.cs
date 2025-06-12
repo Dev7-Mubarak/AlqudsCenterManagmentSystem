@@ -4,6 +4,7 @@ using AlqudsProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlqudsProject.Migrations
 {
     [DbContext(typeof(Alquds_CenterContext))]
-    partial class Alquds_CenterContextModelSnapshot : ModelSnapshot
+    [Migration("20250612192118_intial-create")]
+    partial class intialcreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,24 +246,6 @@ namespace AlqudsProject.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b47b64fb-d718-4a29-b58c-b79820a3c3db",
-                            Email = "admin@example.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@EXAMPLE.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMCX1hwJ9w/azDyrXDlUXqNH6XzeTqaCgLt3G5Ypzh6H5vCpXN2Q/0kugfOH3md4pw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e26877a9-e537-4799-929f-bf81bb7288cf",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("AlqudsProject.Models.CenterAnnualReport", b =>
@@ -1729,22 +1713,6 @@ namespace AlqudsProject.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "11111111 - 1111 - 1111 - 1111 - 111111111111",
-                            ConcurrencyStamp = "cb4e089b-3329-4280-9be6-ffc1514957cf",
-                            Name = "أداري",
-                            NormalizedName = "أداري"
-                        },
-                        new
-                        {
-                            Id = "22222222-2222-2222-2222-222222222222",
-                            ConcurrencyStamp = "a59f9348-8d8c-4e07-bbb3-c07a3da70b82",
-                            Name = "معلم",
-                            NormalizedName = "معلم"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1832,13 +1800,6 @@ namespace AlqudsProject.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-                            RoleId = "11111111-1111-1111-1111-111111111111"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

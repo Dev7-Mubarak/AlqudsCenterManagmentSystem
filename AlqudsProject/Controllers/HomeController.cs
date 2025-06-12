@@ -99,41 +99,41 @@ namespace AlqudsProject.Controllers
                 return View(model);
             }
 
-            var user = _context.Accounts
-                .FirstOrDefault(a => a.Username == model.Username && a.PasswordHash == model.PasswordHash);
+            //var user = _context.Accounts
+            //    .FirstOrDefault(a => a.Username == model.Username && a.PasswordHash == model.PasswordHash);
 
-            if (user != null)
-            {
-                var roleAccount = _context.RoleAccounts
-                    .FirstOrDefault(ra => ra.AccountId == user.AccountId);
+            //if (user != null)
+            //{
+            //    var roleAccount = _context.RoleAccounts
+            //        .FirstOrDefault(ra => ra.AccountId == user.AccountId);
 
-                if (roleAccount != null)
-                {
-                    var role = _context.Roles
-                        .FirstOrDefault(r => r.RoleId == roleAccount.RoleId);
+            //    if (roleAccount != null)
+            //    {
+            //        var role = _context.Roles
+            //            .FirstOrDefault(r => r.RoleId == roleAccount.RoleId);
 
-                    if (role != null && role.RoleName == model.RoleName)
-                    {
-                        HttpContext.Session.SetInt32("AccountId", user.AccountId);
-                        HttpContext.Session.SetString("UserRole", role.RoleName);
-                        HttpContext.Session.SetString("Username", user.Username);
+            //        if (role != null && role.RoleName == model.RoleName)
+            //        {
+            //            HttpContext.Session.SetInt32("AccountId", user.AccountId);
+            //            HttpContext.Session.SetString("UserRole", role.RoleName);
+            //            HttpContext.Session.SetString("Username", user.Username);
 
-                        if (role.RoleName == "معلم")
-                        {
-                            HttpContext.Session.SetInt32("TeacherID", roleAccount.TeacherId.Value);
+            //            if (role.RoleName == "معلم")
+            //            {
+            //                HttpContext.Session.SetInt32("TeacherID", roleAccount.TeacherId.Value);
 
-                            int halaqatCount = _context.Halaqas
-                                .Count(h => h.TeacherId == roleAccount.TeacherId);
-                            HttpContext.Session.SetInt32("HalaqatCount", halaqatCount);
-                        }
+            //                int halaqatCount = _context.Halaqas
+            //                    .Count(h => h.TeacherId == roleAccount.TeacherId);
+            //                HttpContext.Session.SetInt32("HalaqatCount", halaqatCount);
+            //            }
 
-                        // رسالة نجاح
-                        TempData["Success"] = "تم تسجيل الدخول بنجاح";
+            //            // رسالة نجاح
+            //            TempData["Success"] = "تم تسجيل الدخول بنجاح";
 
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-            }
+            //            return RedirectToAction("Index", "Home");
+            //        }
+            //    }
+            //}
             TempData["Error"] = "ليس لديك صلاحية الدخول";
             return RedirectToAction("Index", "Home");
 

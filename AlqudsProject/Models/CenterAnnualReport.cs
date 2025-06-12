@@ -20,6 +20,6 @@ namespace AlqudsProject.Models
         public DateTime? CreatedAt { get; set; }
 
         public virtual AcademicYear? AcademicYear { get; set; }
-        public virtual Account? CreatedByNavigation { get; set; }
+        public virtual AppUser? CreatedByNavigation { get; set; }
     }
 }

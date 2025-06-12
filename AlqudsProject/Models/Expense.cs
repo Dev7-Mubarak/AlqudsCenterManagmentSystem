@@ -21,7 +21,7 @@ namespace AlqudsProject.Models
         public int? PaidBy { get; set; }
 
         public virtual AcademicYear? AcademicYear { get; set; }
-        public virtual Account? PaidByNavigation { get; set; }
+        public virtual AppUser? PaidByNavigation { get; set; }
         public virtual ICollection<ActivitiesImage> ActivitiesImages { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlqudsProject.Migrations
 {
     [DbContext(typeof(Alquds_CenterContext))]
-    [Migration("20250612185957_intial-create")]
-    partial class intialcreate
+    [Migration("20250612193804_Seeding-Users")]
+    partial class SeedingUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,232 +70,6 @@ namespace AlqudsProject.Migrations
                             DateOfBeginYear = new DateTime(2024, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfEndYear = new DateTime(2025, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentRegistrationSuspensionDate = new DateTime(2024, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
-                });
-
-            modelBuilder.Entity("AlqudsProject.Models.Account", b =>
-                {
-                    b.Property<int>("AccountId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("AccountID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountId"), 1L, 1);
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Phone")
-                        .HasMaxLength(15)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(15)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
-
-                    b.HasKey("AccountId");
-
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
-
-                    b.HasIndex("Phone")
-                        .IsUnique()
-                        .HasFilter("[Phone] IS NOT NULL");
-
-                    b.HasIndex("Username")
-                        .IsUnique();
-
-                    b.ToTable("Account", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            AccountId = 1,
-                            Email = "fatima.ali@example.com",
-                            FullName = "فاطمة علي محمد",
-                            PasswordHash = "pass123",
-                            Phone = "771234567",
-                            Username = "admin1"
-                        },
-                        new
-                        {
-                            AccountId = 2,
-                            Email = "khadija.omar@example.com",
-                            FullName = "خديجة عمر عبدالله",
-                            PasswordHash = "pass456",
-                            Phone = "772345678",
-                            Username = "teacher1"
-                        },
-                        new
-                        {
-                            AccountId = 3,
-                            Email = "aisha.khalid@example.com",
-                            FullName = "عائشة خالد يوسف",
-                            PasswordHash = "pass789",
-                            Phone = "773456789",
-                            Username = "teacher2"
-                        },
-                        new
-                        {
-                            AccountId = 4,
-                            Email = "ruqaya.saeed@example.com",
-                            FullName = "رقية سعيد إبراهيم",
-                            PasswordHash = "pass101",
-                            Phone = "774567890",
-                            Username = "admin2"
-                        },
-                        new
-                        {
-                            AccountId = 5,
-                            Email = "maryam.hassan@example.com",
-                            FullName = "مريم حسن إسماعيل",
-                            PasswordHash = "pass112",
-                            Phone = "775678901",
-                            Username = "teacher3"
-                        },
-                        new
-                        {
-                            AccountId = 6,
-                            Email = "asmaa.hussein@example.com",
-                            FullName = "أسماء حسين أحمد",
-                            PasswordHash = "pass131",
-                            Phone = "776789012",
-                            Username = "teacher4"
-                        },
-                        new
-                        {
-                            AccountId = 7,
-                            Email = "zainab.mahmoud@example.com",
-                            FullName = "زينب محمود محمد",
-                            PasswordHash = "pass141",
-                            Phone = "777890123",
-                            Username = "admin3"
-                        },
-                        new
-                        {
-                            AccountId = 8,
-                            Email = "hafsa.sami@example.com",
-                            FullName = "حفصة سامي عمر",
-                            PasswordHash = "pass151",
-                            Phone = "778901234",
-                            Username = "teacher5"
-                        },
-                        new
-                        {
-                            AccountId = 9,
-                            Email = "sumaya.anwar@example.com",
-                            FullName = "سمية أنور عبدالله",
-                            PasswordHash = "pass161",
-                            Phone = "779012345",
-                            Username = "teacher6"
-                        },
-                        new
-                        {
-                            AccountId = 10,
-                            Email = "omkulthum.yasser@example.com",
-                            FullName = "أم كلثوم ياسر يوسف",
-                            PasswordHash = "pass171",
-                            Phone = "770123456",
-                            Username = "admin4"
-                        },
-                        new
-                        {
-                            AccountId = 11,
-                            Email = "juwayriya.karim@example.com",
-                            FullName = "جويرية كريم إبراهيم",
-                            PasswordHash = "pass181",
-                            Phone = "771234568",
-                            Username = "teacher7"
-                        },
-                        new
-                        {
-                            AccountId = 12,
-                            Email = "safiya.nabil@example.com",
-                            FullName = "صفية نبيل إسماعيل",
-                            PasswordHash = "pass191",
-                            Phone = "772345679",
-                            Username = "teacher8"
-                        },
-                        new
-                        {
-                            AccountId = 13,
-                            Email = "hind.amjad@example.com",
-                            FullName = "هند أمجد محمد",
-                            PasswordHash = "pass212",
-                            Phone = "774567891",
-                            Username = "teacher9"
-                        },
-                        new
-                        {
-                            AccountId = 14,
-                            Email = "thuwayba.baha@example.com",
-                            FullName = "ثويبة بهاء عمر",
-                            PasswordHash = "pass222",
-                            Phone = "775678902",
-                            Username = "teacher10"
-                        },
-                        new
-                        {
-                            AccountId = 15,
-                            Email = "naila.shawqi@example.com",
-                            FullName = "نائلة شوقي يوسف",
-                            PasswordHash = "pass242",
-                            Phone = "777890124",
-                            Username = "teacher11"
-                        },
-                        new
-                        {
-                            AccountId = 16,
-                            Email = "layla.rashid@example.com",
-                            FullName = "ليلى رشيد إبراهيم",
-                            PasswordHash = "pass252",
-                            Phone = "778901235",
-                            Username = "teacher12"
-                        },
-                        new
-                        {
-                            AccountId = 17,
-                            Email = "ramla.fuad@example.com",
-                            FullName = "رملة فؤاد أحمد",
-                            PasswordHash = "pass272",
-                            Phone = "770123457",
-                            Username = "teacher13"
-                        },
-                        new
-                        {
-                            AccountId = 18,
-                            Email = "suad.jamal@example.com",
-                            FullName = "سعاد جمال محمد",
-                            PasswordHash = "pass282",
-                            Phone = "771234569",
-                            Username = "teacher14"
-                        },
-                        new
-                        {
-                            AccountId = 19,
-                            Email = "iman.nader@example.com",
-                            FullName = "إيمان نادر عبدالله",
-                            PasswordHash = "pass303",
-                            Phone = "773456781",
-                            Username = "teacher15"
                         });
                 });
 
@@ -409,6 +183,89 @@ namespace AlqudsProject.Migrations
                     b.ToTable("AnnualReports");
                 });
 
+            modelBuilder.Entity("AlqudsProject.Models.AppUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b47b64fb-d718-4a29-b58c-b79820a3c3db",
+                            Email = "admin@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@EXAMPLE.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMCX1hwJ9w/azDyrXDlUXqNH6XzeTqaCgLt3G5Ypzh6H5vCpXN2Q/0kugfOH3md4pw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e26877a9-e537-4799-929f-bf81bb7288cf",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
+                });
+
             modelBuilder.Entity("AlqudsProject.Models.CenterAnnualReport", b =>
                 {
                     b.Property<int>("CenterAnnualReportId")
@@ -432,8 +289,8 @@ namespace AlqudsProject.Migrations
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedByNavigationAccountId")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedByNavigationId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("EventsCount")
                         .HasColumnType("int");
@@ -460,7 +317,7 @@ namespace AlqudsProject.Migrations
 
                     b.HasIndex("AcademicYearId");
 
-                    b.HasIndex("CreatedByNavigationAccountId");
+                    b.HasIndex("CreatedByNavigationId");
 
                     b.ToTable("CenterAnnualReports");
                 });
@@ -598,8 +455,8 @@ namespace AlqudsProject.Migrations
                     b.Property<int?>("PaidBy")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PaidByNavigationAccountId")
-                        .HasColumnType("int");
+                    b.Property<string>("PaidByNavigationId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -611,7 +468,7 @@ namespace AlqudsProject.Migrations
 
                     b.HasIndex("AcademicYearId");
 
-                    b.HasIndex("PaidByNavigationAccountId");
+                    b.HasIndex("PaidByNavigationId");
 
                     b.ToTable("Expenses", (string)null);
 
@@ -622,9 +479,9 @@ namespace AlqudsProject.Migrations
                             AcademicYearId = 1,
                             Amount = 30000.00m,
                             Date = new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "\nفي ظل سعي مركز القدس لتحفيظ القرآن الكريم لتوسيع خدماته التعليمية وتلبية احتياجات المجتمع المحلي، تم بحمد الله وتوفيقه تدشين \"روضة مركز القدس\"، في حفل بهيج أقيم في مقر المركز، بحضور عدد من القيادات التربوية وأمهات الطالبات ومعلمات المركز.",
+                            Description = "\r\nفي ظل سعي مركز القدس لتحفيظ القرآن الكريم لتوسيع خدماته التعليمية وتلبية احتياجات المجتمع المحلي، تم بحمد الله وتوفيقه تدشين \"روضة مركز القدس\"، في حفل بهيج أقيم في مقر المركز، بحضور عدد من القيادات التربوية وأمهات الطالبات ومعلمات المركز.",
                             IsActivity = true,
-                            Notes = "وقد استُهل الحفل بآيات من الذكر الحكيم، ثم تلتها كلمة ترحيبية من إدارة المركز، أشادت خلالها بأهمية مرحلة الطفولة المبكرة في بناء الشخصية وتنمية القيم، مؤكدة أن افتتاح الروضة يُعد خطوة نوعية ضمن مسيرة المركز في تقديم تعليم قرآني وتربوي متكامل يبدأ من الطفولة وحتى سن الفتيات.\nوقد اشتمل حفل التدشين على فقرات متعددة، منها عرض مرئي تعريفي بمرافق الروضة الجديدة وتجهيزاتها الحديثة، وجولة ميدانية اطلع فيها الزوار على الفصول الدراسية المصممة وفق بيئة تعليمية جاذبة وآمنة، إضافة إلى أنشطة ترفيهية تفاعلية للأطفال، وركن للخط والرسم، مما أضفى على الأجواء طابعًا من البهجة والسرور.\nكما تم في نهاية الحفل تكريم الطاقم التربوي والإداري القائم على الروضة، وتوزيع هدايا رمزية على الأطفال، وتوثيق لحظات التدشين بعدسة فريق التصوير الخاص بالمركز.\nويأتي هذا المشروع انطلاقًا من رؤية المركز الطموحة في بناء جيل قرآني منسجم مع القيم الإسلامية، وتوفير بيئة تعليمية راقية تنمّي القدرات الذهنية والحسية والحركية للطفل، وتُعزز من ارتباطه بالقرآن الكريم منذ سنواته الأولى.\n",
+                            Notes = "وقد استُهل الحفل بآيات من الذكر الحكيم، ثم تلتها كلمة ترحيبية من إدارة المركز، أشادت خلالها بأهمية مرحلة الطفولة المبكرة في بناء الشخصية وتنمية القيم، مؤكدة أن افتتاح الروضة يُعد خطوة نوعية ضمن مسيرة المركز في تقديم تعليم قرآني وتربوي متكامل يبدأ من الطفولة وحتى سن الفتيات.\r\nوقد اشتمل حفل التدشين على فقرات متعددة، منها عرض مرئي تعريفي بمرافق الروضة الجديدة وتجهيزاتها الحديثة، وجولة ميدانية اطلع فيها الزوار على الفصول الدراسية المصممة وفق بيئة تعليمية جاذبة وآمنة، إضافة إلى أنشطة ترفيهية تفاعلية للأطفال، وركن للخط والرسم، مما أضفى على الأجواء طابعًا من البهجة والسرور.\r\nكما تم في نهاية الحفل تكريم الطاقم التربوي والإداري القائم على الروضة، وتوزيع هدايا رمزية على الأطفال، وتوثيق لحظات التدشين بعدسة فريق التصوير الخاص بالمركز.\r\nويأتي هذا المشروع انطلاقًا من رؤية المركز الطموحة في بناء جيل قرآني منسجم مع القيم الإسلامية، وتوفير بيئة تعليمية راقية تنمّي القدرات الذهنية والحسية والحركية للطفل، وتُعزز من ارتباطه بالقرآن الكريم منذ سنواته الأولى.\r\n",
                             PaidBy = 4,
                             Title = "تدشين افتتاح روضة مركز القدس"
                         },
@@ -634,9 +491,9 @@ namespace AlqudsProject.Migrations
                             AcademicYearId = 1,
                             Amount = 30000.00m,
                             Date = new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "\nضمن الخطة التربوية التي ينتهجها مركز القدس لتحفيظ القرآن الكريم، وحرصًا على ترسيخ المحفوظ في صدور الطالبات، نظّم المركز \"يوم السرد الشهري\"، وهو برنامج تقييم شامل يهدف إلى متابعة الحفظ وتثبيته وتقدير الجهود المبذولة من الطالبات.",
+                            Description = "\r\nضمن الخطة التربوية التي ينتهجها مركز القدس لتحفيظ القرآن الكريم، وحرصًا على ترسيخ المحفوظ في صدور الطالبات، نظّم المركز \"يوم السرد الشهري\"، وهو برنامج تقييم شامل يهدف إلى متابعة الحفظ وتثبيته وتقدير الجهود المبذولة من الطالبات.",
                             IsActivity = true,
-                            Notes = "وقد شاركت في هذا اليوم جميع الطالبات من مختلف الحلقات والمستويات، حيث تم تنظيم جلسات سرد جماعي وفردي أمام لجان التقييم المتخصصة من معلمات ذوات خبرة في التجويد وضبط المصحف، وشملت عملية التقييم مراجعة شاملة للمحفوظات السابقة وفق الخطة الفصلية المعتمدة لكل طالبة.\nسادت الأجواء روح من الحماس والجدية، حيث حرصت الطالبات على تقديم أفضل ما لديهن من أداء وجودة في الحفظ، بينما قامت اللجان بتوثيق النتائج ورفع التقارير لكل حلقة لتُؤخذ بعين الاعتبار في إعداد تقارير الأداء السنوي.\nوتخلل اليوم فقرات تحفيزية للطالبات المتقنات، حيث تم توزيع شهادات تقدير وهدايا رمزية لكل طالبة أظهرت التزامًا وانضباطًا في حفظها، مما عزّز من روح المنافسة الإيجابية بينهن، وشجع غيرهن على المثابرة.\nويُعد هذا البرنامج أحد أهم البرامج التربوية التي يحرص عليها المركز، لكونه يُسهم في متابعة تطور كل طالبة بشكل دوري، ويمنح ولي الأمر والمعلمة صورة واضحة عن مستوى الحفظ والثغرات التي تحتاج مراجعة ومعالجة.\nختامًا، فإن يوم السرد الشهري ليس مجرد تقييم، بل هو احتفال شهري بمنهجية القرآن، وانتصار للإصرار والمثابرة، وتجسيد عملي لمقولة: \"خيركم من تعلم القرآن وعلّمه\".",
+                            Notes = "وقد شاركت في هذا اليوم جميع الطالبات من مختلف الحلقات والمستويات، حيث تم تنظيم جلسات سرد جماعي وفردي أمام لجان التقييم المتخصصة من معلمات ذوات خبرة في التجويد وضبط المصحف، وشملت عملية التقييم مراجعة شاملة للمحفوظات السابقة وفق الخطة الفصلية المعتمدة لكل طالبة.\r\nسادت الأجواء روح من الحماس والجدية، حيث حرصت الطالبات على تقديم أفضل ما لديهن من أداء وجودة في الحفظ، بينما قامت اللجان بتوثيق النتائج ورفع التقارير لكل حلقة لتُؤخذ بعين الاعتبار في إعداد تقارير الأداء السنوي.\r\nوتخلل اليوم فقرات تحفيزية للطالبات المتقنات، حيث تم توزيع شهادات تقدير وهدايا رمزية لكل طالبة أظهرت التزامًا وانضباطًا في حفظها، مما عزّز من روح المنافسة الإيجابية بينهن، وشجع غيرهن على المثابرة.\r\nويُعد هذا البرنامج أحد أهم البرامج التربوية التي يحرص عليها المركز، لكونه يُسهم في متابعة تطور كل طالبة بشكل دوري، ويمنح ولي الأمر والمعلمة صورة واضحة عن مستوى الحفظ والثغرات التي تحتاج مراجعة ومعالجة.\r\nختامًا، فإن يوم السرد الشهري ليس مجرد تقييم، بل هو احتفال شهري بمنهجية القرآن، وانتصار للإصرار والمثابرة، وتجسيد عملي لمقولة: \"خيركم من تعلم القرآن وعلّمه\".",
                             PaidBy = 4,
                             Title = "يوم السرد الشهري لتثبيت المحفوظ"
                         },
@@ -646,9 +503,9 @@ namespace AlqudsProject.Migrations
                             AcademicYearId = 1,
                             Amount = 30000.00m,
                             Date = new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "\nفي إطار تعزيز الكفاءة المهنية وبناء بيئة تعليمية مؤثرة وفاعلة، شاركت معلمات وإداريات مركز القدس لتحفيظ القرآن الكريم في أنشطة القيادة التربوية التي تهدف إلى تطوير المهارات القيادية، وتنمية القدرات في التخطيط والتنظيم والإشراف التربوي.",
+                            Description = "\r\nفي إطار تعزيز الكفاءة المهنية وبناء بيئة تعليمية مؤثرة وفاعلة، شاركت معلمات وإداريات مركز القدس لتحفيظ القرآن الكريم في أنشطة القيادة التربوية التي تهدف إلى تطوير المهارات القيادية، وتنمية القدرات في التخطيط والتنظيم والإشراف التربوي.",
                             IsActivity = true,
-                            Notes = "\nوقد تمثلت المشاركة في حضور اللقاءات التربوية الدورية، والمساهمة في إعداد الخطط التعليمية للحلقات، وتنظيم الفعاليات القرآنية والتربوية داخل المركز، وتقديم المبادرات النوعية التي تُسهم في رفع جودة الأداء داخل الحلقة وخارجها.\nكما شاركت عدد من المعلمات في مهام قيادية داخل المركز، مثل الإشراف العام على الحلقات، وتوجيه المعلمات المستجدات، وإعداد ملفات الإنجاز، ومتابعة تنفيذ المعايير التعليمية والتقويمية.\nوتعكس هذه المشاركة روح المسؤولية العالية لدى الفريق التربوي في المركز، وحرصه على ترسيخ القيم القيادية القائمة على العمل الجماعي، والقدوة الصالحة، والتطوير المستمر، بما يواكب رؤية المركز في إعداد جيل قرآني متمكن، تقوده كوادر مؤهلة قياديًا وتربويًا.",
+                            Notes = "\r\nوقد تمثلت المشاركة في حضور اللقاءات التربوية الدورية، والمساهمة في إعداد الخطط التعليمية للحلقات، وتنظيم الفعاليات القرآنية والتربوية داخل المركز، وتقديم المبادرات النوعية التي تُسهم في رفع جودة الأداء داخل الحلقة وخارجها.\r\nكما شاركت عدد من المعلمات في مهام قيادية داخل المركز، مثل الإشراف العام على الحلقات، وتوجيه المعلمات المستجدات، وإعداد ملفات الإنجاز، ومتابعة تنفيذ المعايير التعليمية والتقويمية.\r\nوتعكس هذه المشاركة روح المسؤولية العالية لدى الفريق التربوي في المركز، وحرصه على ترسيخ القيم القيادية القائمة على العمل الجماعي، والقدوة الصالحة، والتطوير المستمر، بما يواكب رؤية المركز في إعداد جيل قرآني متمكن، تقوده كوادر مؤهلة قياديًا وتربويًا.",
                             PaidBy = 4,
                             Title = "المشاركة في القيادة التربوية"
                         });
@@ -1418,168 +1275,6 @@ namespace AlqudsProject.Migrations
                     b.ToTable("ReviewPlans");
                 });
 
-            modelBuilder.Entity("AlqudsProject.Models.Role", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("RoleID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"), 1L, 1);
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(true)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("Role", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = 1,
-                            RoleName = "إداري"
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            RoleName = "معلم"
-                        });
-                });
-
-            modelBuilder.Entity("AlqudsProject.Models.RoleAccount", b =>
-                {
-                    b.Property<int>("RoleAccountId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("RoleAccountID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleAccountId"), 1L, 1);
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int")
-                        .HasColumnName("AccountID");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int")
-                        .HasColumnName("RoleID");
-
-                    b.Property<int?>("TeacherId")
-                        .HasColumnType("int")
-                        .HasColumnName("TeacherID");
-
-                    b.HasKey("RoleAccountId");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("RoleAccount", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            RoleAccountId = 1,
-                            AccountId = 1,
-                            RoleId = 1,
-                            TeacherId = 1
-                        },
-                        new
-                        {
-                            RoleAccountId = 2,
-                            AccountId = 2,
-                            RoleId = 2,
-                            TeacherId = 2
-                        },
-                        new
-                        {
-                            RoleAccountId = 3,
-                            AccountId = 3,
-                            RoleId = 2,
-                            TeacherId = 3
-                        },
-                        new
-                        {
-                            RoleAccountId = 4,
-                            AccountId = 4,
-                            RoleId = 1,
-                            TeacherId = 4
-                        },
-                        new
-                        {
-                            RoleAccountId = 5,
-                            AccountId = 5,
-                            RoleId = 2,
-                            TeacherId = 5
-                        },
-                        new
-                        {
-                            RoleAccountId = 6,
-                            AccountId = 6,
-                            RoleId = 2,
-                            TeacherId = 6
-                        },
-                        new
-                        {
-                            RoleAccountId = 7,
-                            AccountId = 7,
-                            RoleId = 1,
-                            TeacherId = 7
-                        },
-                        new
-                        {
-                            RoleAccountId = 8,
-                            AccountId = 8,
-                            RoleId = 2,
-                            TeacherId = 8
-                        },
-                        new
-                        {
-                            RoleAccountId = 9,
-                            AccountId = 9,
-                            RoleId = 2,
-                            TeacherId = 9
-                        },
-                        new
-                        {
-                            RoleAccountId = 10,
-                            AccountId = 10,
-                            RoleId = 1,
-                            TeacherId = 10
-                        },
-                        new
-                        {
-                            RoleAccountId = 11,
-                            AccountId = 11,
-                            RoleId = 2,
-                            TeacherId = 11
-                        },
-                        new
-                        {
-                            RoleAccountId = 12,
-                            AccountId = 12,
-                            RoleId = 2,
-                            TeacherId = 12
-                        },
-                        new
-                        {
-                            RoleAccountId = 13,
-                            AccountId = 13,
-                            RoleId = 1,
-                            TeacherId = 14
-                        },
-                        new
-                        {
-                            RoleAccountId = 14,
-                            AccountId = 14,
-                            RoleId = 2,
-                            TeacherId = 15
-                        });
-                });
-
             modelBuilder.Entity("AlqudsProject.Models.Student", b =>
                 {
                     b.Property<int>("StudentId")
@@ -1931,8 +1626,8 @@ namespace AlqudsProject.Migrations
                         .HasColumnType("int")
                         .HasColumnName("RecordedBy");
 
-                    b.Property<int?>("RecordedByNavigationAccountId")
-                        .HasColumnType("int");
+                    b.Property<string>("RecordedByNavigationId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -1946,7 +1641,7 @@ namespace AlqudsProject.Migrations
 
                     b.HasKey("TeacherAttendanceId");
 
-                    b.HasIndex("RecordedByNavigationAccountId");
+                    b.HasIndex("RecordedByNavigationId");
 
                     b.HasIndex("TeacherId");
 
@@ -2011,6 +1706,162 @@ namespace AlqudsProject.Migrations
                     b.ToTable("TermReports");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "11111111 - 1111 - 1111 - 1111 - 111111111111",
+                            ConcurrencyStamp = "cb4e089b-3329-4280-9be6-ffc1514957cf",
+                            Name = "أداري",
+                            NormalizedName = "أداري"
+                        },
+                        new
+                        {
+                            Id = "22222222-2222-2222-2222-222222222222",
+                            ConcurrencyStamp = "a59f9348-8d8c-4e07-bbb3-c07a3da70b82",
+                            Name = "معلم",
+                            NormalizedName = "معلم"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+                            RoleId = "11111111-1111-1111-1111-111111111111"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
             modelBuilder.Entity("AlqudsProject.Models.ActivitiesImage", b =>
                 {
                     b.HasOne("AlqudsProject.Models.Expense", "Expense")
@@ -2040,9 +1891,9 @@ namespace AlqudsProject.Migrations
                         .WithMany("CenterAnnualReports")
                         .HasForeignKey("AcademicYearId");
 
-                    b.HasOne("AlqudsProject.Models.Account", "CreatedByNavigation")
-                        .WithMany("CenterAnnualReports")
-                        .HasForeignKey("CreatedByNavigationAccountId");
+                    b.HasOne("AlqudsProject.Models.AppUser", "CreatedByNavigation")
+                        .WithMany()
+                        .HasForeignKey("CreatedByNavigationId");
 
                     b.Navigation("AcademicYear");
 
@@ -2084,9 +1935,9 @@ namespace AlqudsProject.Migrations
                         .WithMany("Expenses")
                         .HasForeignKey("AcademicYearId");
 
-                    b.HasOne("AlqudsProject.Models.Account", "PaidByNavigation")
-                        .WithMany("Expenses")
-                        .HasForeignKey("PaidByNavigationAccountId");
+                    b.HasOne("AlqudsProject.Models.AppUser", "PaidByNavigation")
+                        .WithMany()
+                        .HasForeignKey("PaidByNavigationId");
 
                     b.Navigation("AcademicYear");
 
@@ -2200,25 +2051,6 @@ namespace AlqudsProject.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("AlqudsProject.Models.RoleAccount", b =>
-                {
-                    b.HasOne("AlqudsProject.Models.Account", "Account")
-                        .WithMany("RoleAccounts")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AlqudsProject.Models.Role", "Role")
-                        .WithMany("RoleAccounts")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("AlqudsProject.Models.Student", b =>
                 {
                     b.HasOne("AlqudsProject.Models.Halaqa", "Halaqa")
@@ -2241,9 +2073,9 @@ namespace AlqudsProject.Migrations
 
             modelBuilder.Entity("AlqudsProject.Models.TeacherAttendance", b =>
                 {
-                    b.HasOne("AlqudsProject.Models.Account", "RecordedByNavigation")
-                        .WithMany("TeacherAttendances")
-                        .HasForeignKey("RecordedByNavigationAccountId");
+                    b.HasOne("AlqudsProject.Models.AppUser", "RecordedByNavigation")
+                        .WithMany()
+                        .HasForeignKey("RecordedByNavigationId");
 
                     b.HasOne("AlqudsProject.Models.Teacher", "Teacher")
                         .WithMany("TeacherAttendances")
@@ -2265,6 +2097,57 @@ namespace AlqudsProject.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("AlqudsProject.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("AlqudsProject.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AlqudsProject.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("AlqudsProject.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("AlqudsProject.Models.AcademicYear", b =>
                 {
                     b.Navigation("CenterAnnualReports");
@@ -2276,17 +2159,6 @@ namespace AlqudsProject.Migrations
                     b.Navigation("FinancialSupports");
 
                     b.Navigation("Halaqas");
-                });
-
-            modelBuilder.Entity("AlqudsProject.Models.Account", b =>
-                {
-                    b.Navigation("CenterAnnualReports");
-
-                    b.Navigation("Expenses");
-
-                    b.Navigation("RoleAccounts");
-
-                    b.Navigation("TeacherAttendances");
                 });
 
             modelBuilder.Entity("AlqudsProject.Models.Expense", b =>
@@ -2326,11 +2198,6 @@ namespace AlqudsProject.Migrations
             modelBuilder.Entity("AlqudsProject.Models.ReviewPlan", b =>
                 {
                     b.Navigation("DailyReviewPlans");
-                });
-
-            modelBuilder.Entity("AlqudsProject.Models.Role", b =>
-                {
-                    b.Navigation("RoleAccounts");
                 });
 
             modelBuilder.Entity("AlqudsProject.Models.Student", b =>

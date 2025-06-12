@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using AlqudsProject.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AlqudsProject.Data
 {
-    public partial class Alquds_CenterContext : DbContext
+    public partial class Alquds_CenterContext : IdentityDbContext<AppUser>
     {
         public Alquds_CenterContext()
         {
@@ -18,7 +19,6 @@ namespace AlqudsProject.Data
         }
 
         public virtual DbSet<AcademicYear> AcademicYears { get; set; } = null!;
-        public virtual DbSet<Account> Accounts { get; set; } = null!;
         public virtual DbSet<ActivitiesImage> ActivitiesImages { get; set; } = null!;
         public virtual DbSet<AnnualReport> AnnualReports { get; set; } = null!;
         public virtual DbSet<CenterAnnualReport> CenterAnnualReports { get; set; } = null!;
@@ -38,8 +38,6 @@ namespace AlqudsProject.Data
         public virtual DbSet<MemorizationPath> MemorizationPath { get; set; } = null!;
         public virtual DbSet<PathHalaqaRelationship> PathHalaqaRelationships { get; set; } = null!;
         public virtual DbSet<ReviewPlan> ReviewPlans { get; set; } = null!;
-        public virtual DbSet<Role> Roles { get; set; } = null!;
-        public virtual DbSet<RoleAccount> RoleAccounts { get; set; } = null!;
         public virtual DbSet<Student> Students { get; set; } = null!;
         public virtual DbSet<Teacher> Teachers { get; set; } = null!;
         public virtual DbSet<TeacherAttendance> TeacherAttendances { get; set; } = null!;

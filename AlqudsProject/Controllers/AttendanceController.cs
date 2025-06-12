@@ -91,27 +91,28 @@ namespace AlqudsProject.Controllers
         }
         public IActionResult TeachersDaily(DateTime? selectedDate)
         {
-            var date = selectedDate ?? DateTime.Today;
+        //    var date = selectedDate ?? DateTime.Today;
 
-            var teachers = _context.Teachers
-                .Select(t => new TeacherDailyRow
-                {
-                    TeacherID = t.TeacherId,
-                    TeacherName = t.Name,
-                    AttendanceStatus = _context.TeacherAttendances
-                        .Where(a => a.TeacherId == t.TeacherId && a.Date == date)
-                        .Select(a => a.Status)
-                        .FirstOrDefault(),
-                    RecorderName = (from a in _context.TeacherAttendances
-                                    join account in _context.Accounts on a.RecordedBy equals account.AccountId
-                                    where a.TeacherId == t.TeacherId && a.Date == date
-                                    select account.FullName).FirstOrDefault() 
-        }).ToList();
+        //    var teachers = _context.Teachers
+        //        .Select(t => new TeacherDailyRow
+        //        {
+        //            TeacherID = t.TeacherId,
+        //            TeacherName = t.Name,
+        //            AttendanceStatus = _context.TeacherAttendances
+        //                .Where(a => a.TeacherId == t.TeacherId && a.Date == date)
+        //                .Select(a => a.Status)
+        //                .FirstOrDefault(),
+        //            RecorderName = (from a in _context.TeacherAttendances
+        //                            join account in _context.Accounts on a.RecordedBy equals account.AccountId
+        //                            where a.TeacherId == t.TeacherId && a.Date == date
+        //                            select account.FullName).FirstOrDefault() 
+        //}).ToList();
 
-            ViewBag.SelectedDate = date;
-            ViewBag.IsReadOnly = date < DateTime.Today;
+        //    ViewBag.SelectedDate = date;
+        //    ViewBag.IsReadOnly = date < DateTime.Today;
 
-            return View(teachers);
+            //return View(teachers);
+            return View();
         }
 
 

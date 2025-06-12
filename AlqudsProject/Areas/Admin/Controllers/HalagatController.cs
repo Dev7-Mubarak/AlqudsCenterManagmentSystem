@@ -1,15 +1,15 @@
-﻿using AlqudsProject.Data; 
-using AlqudsProject.Models; 
+﻿using AlqudsProject.Data;
+using AlqudsProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using AlqudsProject;
 using AlqudsProject.ViewModels;
 
-namespace AlqudsProject.Controllers
+namespace AlqudsProject.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class HalagatController : Controller
     { 
         private readonly Alquds_CenterContext _context;

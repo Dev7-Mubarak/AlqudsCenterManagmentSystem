@@ -3,7 +3,7 @@ using AlqudsProject.ViewModels;
 using AlqudsProject.Data;
 using AlqudsProject.Models;
 using Microsoft.EntityFrameworkCore;
-namespace AlqudsProject.Controllers
+namespace AlqudsProject.Areas.Theachers.Controllers
 {
     public class StudentPlanController : Controller
     {

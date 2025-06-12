@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using AlqudsProject.Data;
 using Microsoft.Extensions.FileProviders;
-using System.IO;
-using Microsoft.AspNetCore.Identity;
+using AlqudsProject.Models;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<Alquds_CenterContext>(options =>
@@ -40,9 +41,18 @@ app.UseAuthentication();
 app.UseAuthorization(); 
 app.UseHttpsRedirection();
 
+app.UseEndpoints(endpoints =>
+{
+    app.MapControllerRoute(
+          name: "area",
+          pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-app.MapControllerRoute(
+    endpoints.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+    endpoints.MapControllerRoute(
+   name: "UserIndex",
+   pattern: "{controller=Home}/{action=UserIndex}/{id?}");
+});
 app.Run();

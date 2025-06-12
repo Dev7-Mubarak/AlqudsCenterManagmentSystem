@@ -8,89 +8,90 @@ using Microsoft.EntityFrameworkCore;
 using AlqudsProject.Data;
 using AlqudsProject.Models;
 
-namespace AlqudsProject.Controllers
+namespace AlqudsProject.Areas.Admin.Controllers
 {
-    public class MemorizationPathsController : Controller
+    [Area("Admin")]
+    public class ManhajsController : Controller
     {
         private readonly Alquds_CenterContext _context;
 
-        public MemorizationPathsController(Alquds_CenterContext context)
+        public ManhajsController(Alquds_CenterContext context)
         {
             _context = context;
         }
 
-        // GET: MemorizationPaths
+        // GET: Manhajs
         public async Task<IActionResult> Index()
         {
-              return _context.MemorizationPath != null ? 
-                          View(await _context.MemorizationPath.ToListAsync()) :
-                          Problem("Entity set 'Alquds_CenterContext.MemorizationPath'  is null.");
+              return _context.Manhajs != null ? 
+                          View(await _context.Manhajs.ToListAsync()) :
+                          Problem("Entity set 'Alquds_CenterContext.Manhajs'  is null.");
         }
 
-        // GET: MemorizationPaths/Details/5
+        // GET: Manhajs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.MemorizationPath == null)
+            if (id == null || _context.Manhajs == null)
             {
                 return NotFound();
             }
 
-            var memorizationPath = await _context.MemorizationPath
-                .FirstOrDefaultAsync(m => m.PathId == id);
-            if (memorizationPath == null)
+            var manhaj = await _context.Manhajs
+                .FirstOrDefaultAsync(m => m.ManhajId == id);
+            if (manhaj == null)
             {
                 return NotFound();
             }
 
-            return View(memorizationPath);
+            return View(manhaj);
         }
 
-        // GET: MemorizationPaths/Create
+        // GET: Manhajs/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: MemorizationPaths/Create
+        // POST: Manhajs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PathId,MemorizeFrom,MemorizeTo,Name")] MemorizationPath memorizationPath)
+        public async Task<IActionResult> Create([Bind("ManhajId,Name,Url,Picture")] Manhaj manhaj)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(memorizationPath);
+                _context.Add(manhaj);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(memorizationPath);
+            return View(manhaj);
         }
 
-        // GET: MemorizationPaths/Edit/5
+        // GET: Manhajs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.MemorizationPath == null)
+            if (id == null || _context.Manhajs == null)
             {
                 return NotFound();
             }
 
-            var memorizationPath = await _context.MemorizationPath.FindAsync(id);
-            if (memorizationPath == null)
+            var manhaj = await _context.Manhajs.FindAsync(id);
+            if (manhaj == null)
             {
                 return NotFound();
             }
-            return View(memorizationPath);
+            return View(manhaj);
         }
 
-        // POST: MemorizationPaths/Edit/5
+        // POST: Manhajs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PathId,MemorizeFrom,MemorizeTo,Name")] MemorizationPath memorizationPath)
+        public async Task<IActionResult> Edit(int id, [Bind("ManhajId,Name,Url,Picture")] Manhaj manhaj)
         {
-            if (id != memorizationPath.PathId)
+            if (id != manhaj.ManhajId)
             {
                 return NotFound();
             }
@@ -99,12 +100,12 @@ namespace AlqudsProject.Controllers
             {
                 try
                 {
-                    _context.Update(memorizationPath);
+                    _context.Update(manhaj);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MemorizationPathExists(memorizationPath.PathId))
+                    if (!ManhajExists(manhaj.ManhajId))
                     {
                         return NotFound();
                     }
@@ -115,49 +116,49 @@ namespace AlqudsProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(memorizationPath);
+            return View(manhaj);
         }
 
-        // GET: MemorizationPaths/Delete/5
+        // GET: Manhajs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.MemorizationPath == null)
+            if (id == null || _context.Manhajs == null)
             {
                 return NotFound();
             }
 
-            var memorizationPath = await _context.MemorizationPath
-                .FirstOrDefaultAsync(m => m.PathId == id);
-            if (memorizationPath == null)
+            var manhaj = await _context.Manhajs
+                .FirstOrDefaultAsync(m => m.ManhajId == id);
+            if (manhaj == null)
             {
                 return NotFound();
             }
 
-            return View(memorizationPath);
+            return View(manhaj);
         }
 
-        // POST: MemorizationPaths/Delete/5
+        // POST: Manhajs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.MemorizationPath == null)
+            if (_context.Manhajs == null)
             {
-                return Problem("Entity set 'Alquds_CenterContext.MemorizationPath'  is null.");
+                return Problem("Entity set 'Alquds_CenterContext.Manhajs'  is null.");
             }
-            var memorizationPath = await _context.MemorizationPath.FindAsync(id);
-            if (memorizationPath != null)
+            var manhaj = await _context.Manhajs.FindAsync(id);
+            if (manhaj != null)
             {
-                _context.MemorizationPath.Remove(memorizationPath);
+                _context.Manhajs.Remove(manhaj);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MemorizationPathExists(int id)
+        private bool ManhajExists(int id)
         {
-          return (_context.MemorizationPath?.Any(e => e.PathId == id)).GetValueOrDefault();
+          return (_context.Manhajs?.Any(e => e.ManhajId == id)).GetValueOrDefault();
         }
     }
 }

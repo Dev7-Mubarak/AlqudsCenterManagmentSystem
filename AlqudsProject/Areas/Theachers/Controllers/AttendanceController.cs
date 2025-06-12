@@ -5,8 +5,9 @@ using AlqudsProject.Models;
 
 
 
-namespace AlqudsProject.Controllers
+namespace AlqudsProject.Areas.Theachers.Controllers
 {
+    [Area("Theachers")]
     public class AttendanceController : Controller
     {
         private readonly Alquds_CenterContext _context;

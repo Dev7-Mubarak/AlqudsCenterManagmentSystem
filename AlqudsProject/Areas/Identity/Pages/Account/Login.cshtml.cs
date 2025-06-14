@@ -22,14 +22,14 @@ namespace AlqudsProject.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<AppUser> _signInManager;
         //i add this to validate user name or email
-        private readonly UserManager<AppUser> _userManager;
+
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<AppUser> signInManager, ILogger<LoginModel> logger)
         {
-            _signInManager = signInManager;
+  
             _logger = logger;
-            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         /// <summary>
@@ -69,9 +69,10 @@ namespace AlqudsProject.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [Display(Name ="البريد الالكتروني او اسم المستخدم")]
+            [Display(Name = "البريد الالكتروني او اسم المستخدم")]
             public string Email { get; set; }
 
+            
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -113,18 +114,15 @@ namespace AlqudsProject.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // Check if Input.Email contains '@' to decide if it's an email or username
-                var userNameOrEmail = Input.Email.Contains("@")
-                    ? (await _userManager.FindByEmailAsync(Input.Email))?.UserName
-                    : Input.Email;
-
-                if (userNameOrEmail == null)
+                // Try to find user by email
+                var user = await _userManager.FindByEmailAsync(Input.Email);
+                if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
 
-                var result = await _signInManager.PasswordSignInAsync(userNameOrEmail, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
@@ -145,8 +143,10 @@ namespace AlqudsProject.Areas.Identity.Pages.Account
                 return Page();
             }
 
-            // If we got this far, something failed, redisplay form
+        
             return Page();
         }
 
+
     }
+}

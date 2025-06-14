@@ -263,7 +263,7 @@ namespace AlqudsProject.Migrations
                         {
                             Id = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bc8841d1-e86f-425b-948d-f97a53318c89",
+                            ConcurrencyStamp = "9d367560-2d4a-4b63-898f-1b718cb588ee",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             FirstName = "",
@@ -271,9 +271,9 @@ namespace AlqudsProject.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIGDPDIcQlCbHHCMK6KQi6O2fGnePcpJKIaOa/KpkxX39V8QvLCe/pPljsnQWb/I2A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENN0g5OJ/zVugdIRG+VRHvz/yIjAeOwrDzfV45AFYTFWTGpqR2Wnve04EeXde8cyrw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6644264d-bc2c-4422-a5c3-c20e48b1ee61",
+                            SecurityStamp = "f1bb4075-07f9-49bc-bac6-c4b603f9be8a",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -1749,14 +1749,14 @@ namespace AlqudsProject.Migrations
                         new
                         {
                             Id = "11111111-1111-1111-1111-111111111111",
-                            ConcurrencyStamp = "1ab81145-a571-432c-98d6-d87baa981758",
+                            ConcurrencyStamp = "fb8bae6e-c942-4fa9-a5bf-0af760aecb08",
                             Name = "أداري",
                             NormalizedName = "أداري"
                         },
                         new
                         {
                             Id = "22222222-2222-2222-2222-222222222222",
-                            ConcurrencyStamp = "3f70dd74-3020-4b0f-a0f4-7dc8fe30f019",
+                            ConcurrencyStamp = "56a3b787-3dfa-4de4-b206-47f38b200fd2",
                             Name = "معلم",
                             NormalizedName = "معلم"
                         });

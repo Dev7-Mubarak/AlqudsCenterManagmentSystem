@@ -21,6 +21,7 @@ namespace AlqudsProject.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<AppUser> _signInManager;
+        //i add this to validate user name or email
         private readonly UserManager<AppUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
 

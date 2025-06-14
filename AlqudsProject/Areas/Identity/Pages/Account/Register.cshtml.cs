@@ -75,19 +75,28 @@ namespace AlqudsProject.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
+            [Required(ErrorMessage = "البريد الإلكتروني مطلوب")]
+            [EmailAddress(ErrorMessage = "البريد الإلكتروني غير صالح")]
+            [Display(Name = "البريد الإلكتروني")]
             public string Email { get; set; }
+            [Required(ErrorMessage = "الاسم الأول مطلوب")]
+            [StringLength(100, ErrorMessage = "الاسم الأول يجب ألا يتجاوز {1} حرفًا")]
+            [Display(Name = "الاسم الأول")]
+            public string FirstName { get; set; }
+
+            [Required(ErrorMessage = "الاسم الأخير مطلوب")]
+            [StringLength(100, ErrorMessage = "الاسم الأخير يجب ألا يتجاوز {1} حرفًا")]
+            [Display(Name = "الاسم الأخير")]
+            public string LastName { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "كلمة المرور مطلوبة")]
+            [StringLength(100, ErrorMessage = "كلمة المرور يجب أن تكون على الأقل {2} حرفًا وأقصى {1} حرفًا.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "كلمة المرور")]
             public string Password { get; set; }
 
             /// <summary>
@@ -95,8 +104,8 @@ namespace AlqudsProject.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "تأكيد كلمة المرور")]
+            [Compare("Password", ErrorMessage = "كلمة المرور وتأكيدها غير متطابقتين")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -115,7 +124,11 @@ namespace AlqudsProject.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+
+            
+                var username = Input.Email.Split('@')[0];
+                await _userStore.SetUserNameAsync(user, username, CancellationToken.None);
+
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -159,7 +172,13 @@ namespace AlqudsProject.Areas.Identity.Pages.Account
         {
             try
             {
-                return Activator.CreateInstance<AppUser>();
+                var user = Activator.CreateInstance<AppUser>();
+
+            
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+
+                return user;
             }
             catch
             {
@@ -168,6 +187,7 @@ namespace AlqudsProject.Areas.Identity.Pages.Account
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
+
 
         private IUserEmailStore<AppUser> GetEmailStore()
         {

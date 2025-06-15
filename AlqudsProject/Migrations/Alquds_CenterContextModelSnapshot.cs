@@ -200,6 +200,16 @@ namespace AlqudsProject.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -222,6 +232,9 @@ namespace AlqudsProject.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<byte[]>("ProfilePicture")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -250,15 +263,17 @@ namespace AlqudsProject.Migrations
                         {
                             Id = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b47b64fb-d718-4a29-b58c-b79820a3c3db",
+                            ConcurrencyStamp = "9d367560-2d4a-4b63-898f-1b718cb588ee",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
+                            FirstName = "",
+                            LastName = "",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMCX1hwJ9w/azDyrXDlUXqNH6XzeTqaCgLt3G5Ypzh6H5vCpXN2Q/0kugfOH3md4pw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENN0g5OJ/zVugdIRG+VRHvz/yIjAeOwrDzfV45AFYTFWTGpqR2Wnve04EeXde8cyrw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e26877a9-e537-4799-929f-bf81bb7288cf",
+                            SecurityStamp = "f1bb4075-07f9-49bc-bac6-c4b603f9be8a",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -1733,15 +1748,15 @@ namespace AlqudsProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "11111111 - 1111 - 1111 - 1111 - 111111111111",
-                            ConcurrencyStamp = "cb4e089b-3329-4280-9be6-ffc1514957cf",
+                            Id = "11111111-1111-1111-1111-111111111111",
+                            ConcurrencyStamp = "fb8bae6e-c942-4fa9-a5bf-0af760aecb08",
                             Name = "أداري",
                             NormalizedName = "أداري"
                         },
                         new
                         {
                             Id = "22222222-2222-2222-2222-222222222222",
-                            ConcurrencyStamp = "a59f9348-8d8c-4e07-bbb3-c07a3da70b82",
+                            ConcurrencyStamp = "56a3b787-3dfa-4de4-b206-47f38b200fd2",
                             Name = "معلم",
                             NormalizedName = "معلم"
                         });
@@ -1800,10 +1815,12 @@ namespace AlqudsProject.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -1847,10 +1864,12 @@ namespace AlqudsProject.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");

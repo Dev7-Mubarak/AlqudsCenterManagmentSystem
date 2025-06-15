@@ -23,56 +23,8 @@
             <li><a href="@Url.Action("Index", "Home")#activities">الأخبار</a></li>
             <li><a href="@Url.Action("Index", "Home")#about">من نحن</a></li>
             <li><a href="#contact">تواصل معنا</a></li>
-        
-            @if (Context.Session.GetString("UserRole") == "إداري")
-            {
-                <li><a href="/Dashboard/Admin" class="btn-login" style="color: white;">إدارة</a></li>
-                <li>
-                    <a href="javascript:void(0);" onclick="showLogoutModal();" class="btn-login" style="color: white;">تسجيل الخروج</a>
-                </li>
-            }
-            else if (Context.Session.GetString("UserRole") == "معلم")
-            {
-                var count = Context.Session.GetInt32("HalaqatCount") ?? 0;
-                var showDetails = Context.Session.GetString("ShowHalaqaDetailsButton") == "true";
-                var halaqaId = Context.Session.GetInt32("HalaqaDetailsID") ?? 0;
-                if (showDetails && halaqaId != 0)
-                    {
-                        
-                      <li>
-                        <a href="javascript:void(0);" id="addExamDropdown">إضافة اختبار</a>
-                            <ul id="examTypeDropdown" class="dropdown-menu" style="display:none;">
-                                 <li><a href="#" onclick="navigateToAddExam('شهري')">شهري</a></li>
-                                 <li><a href="#" onclick="navigateToAddExam('نهائي')">نهائي</a></li>
-                            </ul>
-                      </li>
 
-                        <li>
-                            <a href="@Url.Action("Details", "Halagat", new { id = ViewBag.HalaqaId })" class="btn-login" style="color: white;">
-                            عرض تفاصيل الحلقة       
-                            </a>
-                        </li>
-                    }
-                    
-                else if (count == 1)
-                {
-                    <li><a href="/Teacher/MyHalaqa" class="btn-login"style="color: white;">حلقتي</a></li>
-                    <li>
-                        <a href="javascript:void(0);" onclick="showLogoutModal();" class="btn-login" style="color: white;">تسجيل الخروج</a>
-                    </li>
-                }
-                else
-                {
-                    <li><a href="/Dashboard/Teacher" class="btn-login" style="color: white;">حلقاتي</a></li>
-                    <li>
-                        <a href="javascript:void(0);" onclick="showLogoutModal();" class="btn-login" style="color: white;">تسجيل الخروج</a>
-                    </li>
-                }
-            }
-            else
-            {
-                <li><a href="/Home/Login" class="btn-login" style="color: white;">دخول المعلمات والإداريات</a></li>
-            }
+            <partial name="_LoginPartial" />
         </ul>
     </nav>
     <div class="container">

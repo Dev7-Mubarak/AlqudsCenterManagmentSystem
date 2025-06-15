@@ -39,20 +39,19 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization(); 
+app.MapRazorPages();
 app.UseHttpsRedirection();
 
 app.UseEndpoints(endpoints =>
 {
-    app.MapControllerRoute(
-          name: "area",
-          pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
+    // Route for areas (e.g., /Admin/Home/Index)
     endpoints.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+        name: "area",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
+    // Default route (e.g., /Home/Index)
     endpoints.MapControllerRoute(
-   name: "UserIndex",
-   pattern: "{controller=Home}/{action=UserIndex}/{id?}");
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 app.Run();
